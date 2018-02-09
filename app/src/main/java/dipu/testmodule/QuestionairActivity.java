@@ -4,20 +4,23 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.view.LayoutInflater;
 import android.view.View;
+
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Deepak on 11-Dec-17.
@@ -26,11 +29,15 @@ import java.util.ArrayList;
 public class QuestionairActivity extends AppCompatActivity {
 
     DBHelper mydb;
-    TextView Que_no,Que,Option_1,Option_2,Option_3,Option_4;
+    TextView Que_no,Que,Option_1,Option_2,Option_3,Option_4,Countdown;
     RadioButton opt_1,opt_2,opt_3,opt_4;
     Button Submit,Next;
+    CountDownTimer ct;
     ArrayList<Questionair> ListQuestion;
     int Answer;
+    long remaincount=31000;
+    long CountDownTimer=31000;
+    private long TotalTime=0;
     int CorrectAnswer=0;
     int Question=0;
     @Override
@@ -43,6 +50,56 @@ public class QuestionairActivity extends AppCompatActivity {
         HandleQuestionair();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CountDownTimer=remaincount;
+        StopTimer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //CountDownTimer=remaincount;
+        //ct.start();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Countdown();
+    }
+
+    public void Countdown() {
+        ct=new CountDownTimer(CountDownTimer, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                Countdown.setText(String.valueOf( millisUntilFinished / 1000));
+                CountdownAnimation();
+                remaincount=millisUntilFinished;
+            }
+
+            public void onFinish() {
+
+                if (Question+1==ListQuestion.size())
+                {
+                    InsertIntoDB();
+                    Alert("Finish","Completed Questionair");
+
+                }else {
+
+                    CountDownTimer=30001;
+                    Countdown.setText("done!");
+                    TotalTime = TotalTime + 30001;
+                    SubmitQuestion();
+                    NextQuestion();
+                    Countdown();
+                }
+            }
+
+        }.start();
+    }
     private void HandleQuestionair() {
 
         Que_no.setText(String.valueOf(Question+1)+"/"+ListQuestion.size());
@@ -58,6 +115,10 @@ public class QuestionairActivity extends AppCompatActivity {
         opt_4.setChecked(false);
         Submit.setText("Submit");
         Submit.setTextColor(getResources().getColor(R.color.black));
+
+        YoYo.with(Techniques.SlideInRight)
+                .duration(700)
+                .playOn(findViewById(R.id.cardview));
     }
 
     @Override
@@ -69,6 +130,7 @@ public class QuestionairActivity extends AppCompatActivity {
     private void init() {
         mydb = new DBHelper(this);
 
+        List<Questionair> a=new ArrayList<>();
         Que_no=findViewById(R.id.tv_queno);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -77,6 +139,7 @@ public class QuestionairActivity extends AppCompatActivity {
         Option_2=findViewById(R.id.option_2);
         Option_3=findViewById(R.id.option_3);
         Option_4=findViewById(R.id.option_4);
+        Countdown=findViewById(R.id.tv_countdown);
 
         opt_1 =findViewById(R.id.radio_1);
         opt_2=findViewById(R.id.radio_2);
@@ -91,16 +154,17 @@ public class QuestionairActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (Validate()){
+                    UpdateTotalTimeTaken();
+                    StopTimer();
 
                     if (Question+1==ListQuestion.size())
                     {
-                        CorrectAnswer++;
                         InsertIntoDB();
-
                         Alert("Finish","Completed Questionair");
                     }
                     else {
-                        if (Answer == ListQuestion.get(Question).getAnswer()) {
+
+                        if(ChechCorrectAnswer()){
 
                             Submit.setText("Correct");
                             Submit.setTextColor(getResources().getColor(R.color.green));
@@ -111,9 +175,7 @@ public class QuestionairActivity extends AppCompatActivity {
                             Alert("Wrong Answer","The Correct answer is "+ListQuestion.get(Question).getAnswerDescription());
                         }
 
-                        Question++;
-                        Submit.setClickable(false);
-                        Next.setVisibility(View.VISIBLE);
+                        SubmitQuestion();
                     }
                 }
             }
@@ -124,9 +186,9 @@ public class QuestionairActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Next.setVisibility(View.GONE);
-                Submit.setClickable(true);
-                HandleQuestionair();
+                NextQuestion();
+                StartTimer();
+
             }
         });
 
@@ -184,6 +246,60 @@ public class QuestionairActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Countdown();
+    }
+
+    private void CountdownAnimation(){
+
+        /*YoYo.with(Techniques.TakingOff)
+                .duration(1000)
+                .playOn(findViewById(R.id.tv_countdown));*/
+    }
+
+    private void StartTimer() {
+
+        ct.start();
+    }
+
+    private void StopTimer() {
+
+        ct.cancel();
+    }
+
+    private void UpdateTotalTimeTaken() {
+
+        TotalTime=TotalTime+remaincount;
+    }
+
+    private void SubmitQuestion(){
+
+        Question++;
+        Submit.setClickable(false);
+        Next.setVisibility(View.VISIBLE);
+
+    }
+
+    private void NextQuestion(){
+
+        Next.setVisibility(View.GONE);
+        Submit.setClickable(true);
+        HandleQuestionair();
+    }
+
+    private void FinishTest(){
+
+
+    }
+
+    private boolean ChechCorrectAnswer(){
+        boolean Check=false;
+
+        if (Answer == ListQuestion.get(Question).getAnswer()) {
+
+            Check=true;
+        }
+        return Check;
     }
 
     private void InsertIntoDB() {
@@ -192,6 +308,7 @@ public class QuestionairActivity extends AppCompatActivity {
         ContentValues cv=new ContentValues();
         cv.put("Obtained",String.valueOf(CorrectAnswer));
         cv.put("Outof",String.valueOf(ListQuestion.size()));
+        cv.put("TotalTime",TotalTime);
         db.insert("Questionair",null,cv);
     }
 

@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS Questionair(Obtained VARCHAR,Outof VARCHAR);");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS Questionair(Obtained VARCHAR,Outof VARCHAR,TotalTime VARCHAR);");
 
     }
 

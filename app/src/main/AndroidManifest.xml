@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".logins">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,6 +28,11 @@
             android:label="Reports">
 
         </activity>
+
+        <activity android:name=".ModuleList"></activity>
+        <activity android:name=".EmployeeDetailsActivity"></activity>
+        <activity android:name=".ManagerActivity"> </activity>
+
     </application>
 
 </manifest>

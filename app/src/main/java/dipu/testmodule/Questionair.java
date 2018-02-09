@@ -1,6 +1,5 @@
 package dipu.testmodule;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +14,16 @@ public class Questionair {
     String CorrectAnswer ="";
     String AnswerDescription="";
     int Answer = 0;
+    long TimeTaken =0;
+
+    public long getTimeTaken() {
+        return TimeTaken;
+    }
+
+    public void setTimeTaken(long timeTaken) {
+        TimeTaken = timeTaken;
+    }
+
     public String getQuestion_id() {
         return Question_id;
     }
