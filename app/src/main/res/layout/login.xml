@@ -17,17 +17,21 @@
 
         <android.support.v7.widget.AppCompatSpinner
             android:layout_width="300dp"
-            android:layout_height="30dp"
-            android:id="@+id/spin_user">
+            android:id="@+id/spin_user"
+            android:layout_height="40dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/gray_square">
 
         </android.support.v7.widget.AppCompatSpinner>
 
         <EditText
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:paddingLeft="5dp"
             android:layout_marginTop="16dp"
             android:id="@+id/edt_password"
             android:inputType="textPassword"
+            android:background="@drawable/gray_square"
             android:hint="Password"/>
 
         <android.support.v7.widget.AppCompatButton
@@ -36,6 +40,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:text="Login"
+            android:textColor="@color/white"
             android:background="@color/colorPrimary"
             android:layout_marginTop="16dp"/>
     </LinearLayout>

@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import android.widget.Button;
@@ -46,8 +47,30 @@ public class QuestionairActivity extends AppCompatActivity {
         setContentView(R.layout.activity_questionair);
 
         init();
-        GenerateQuestionar();
-        HandleQuestionair();
+        DetailsAlert();
+
+    }
+
+    private void DetailsAlert() {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        dialogBuilder.setMessage(getResources().getString(R.string.info));
+        dialogBuilder.setTitle("Test Details");
+        dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+
+                dialog.cancel();
+                Countdown();
+                GenerateQuestionar();
+                HandleQuestionair();
+
+            }
+        });
+         AlertDialog b = dialogBuilder.create();
+        b.setCancelable(false);
+        b.show();
     }
 
     @Override
@@ -67,7 +90,7 @@ public class QuestionairActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        Countdown();
+        //Countdown();
     }
 
     public void Countdown() {
@@ -85,7 +108,7 @@ public class QuestionairActivity extends AppCompatActivity {
                 if (Question+1==ListQuestion.size())
                 {
                     InsertIntoDB();
-                    Alert("Finish","Completed Questionair");
+                    Alert("Completed Questionair","Thanks for participation!");
 
                 }else {
 
@@ -160,7 +183,7 @@ public class QuestionairActivity extends AppCompatActivity {
                     if (Question+1==ListQuestion.size())
                     {
                         InsertIntoDB();
-                        Alert("Finish","Completed Questionair");
+                        Alert("Completed Questionair","Thanks for participation!");
                     }
                     else {
 
@@ -247,7 +270,6 @@ public class QuestionairActivity extends AppCompatActivity {
             }
         });
 
-        Countdown();
     }
 
     private void CountdownAnimation(){
@@ -325,7 +347,7 @@ public class QuestionairActivity extends AppCompatActivity {
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                if(Title.equals("Finish")){
+                if(Title.equals("Completed Questionair")){
 
                     finish();
 

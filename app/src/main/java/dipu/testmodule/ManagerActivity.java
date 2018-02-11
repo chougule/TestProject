@@ -97,9 +97,10 @@ public class ManagerActivity extends AppCompatActivity {
         if (intent!=null){
 
             String User=intent.getStringExtra("User_Type");
-            if (User.equals("Area Manager"));
-            manager.setVisibility(View.INVISIBLE);
-            employee.setAdapter(a);
+            if (User.equals("Area Manager")) {
+                manager.setVisibility(View.INVISIBLE);
+                employee.setAdapter(a);
+            }
         }
 
         /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,

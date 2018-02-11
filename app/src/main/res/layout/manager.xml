@@ -10,10 +10,12 @@
     <android.support.v7.widget.AppCompatSpinner
         android:layout_width="300dp"
         android:layout_margin="5dp"
-        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/spin_areamanager"
-        >
+        android:layout_height="40dp"
+        android:paddingLeft="5dp"
+        android:background="@drawable/gray_square">
+
 
     </android.support.v7.widget.AppCompatSpinner>
 
@@ -21,8 +23,11 @@
         android:layout_width="300dp"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/spin_employee">
+        android:id="@+id/spin_employee"
+        android:layout_height="40dp"
+        android:paddingLeft="5dp"
+        android:background="@drawable/gray_square">
+
 
     </android.support.v7.widget.AppCompatSpinner>
 
