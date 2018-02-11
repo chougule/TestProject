@@ -16,22 +16,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".QuestionairActivity"
-            android:screenOrientation="portrait"
-            android:label="Questionnaire">
-
-        </activity>
-
-        <activity android:name=".ReportActivity"
-            android:screenOrientation="portrait"
-            android:label="Reports">
-
-        </activity>
-
-        <activity android:name=".ModuleList"></activity>
-        <activity android:name=".EmployeeDetailsActivity"></activity>
-        <activity android:name=".ManagerActivity"> </activity>
+        <activity
+            android:name=".QuestionairActivity"
+            android:label="Questionnaire"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ReportActivity"
+            android:label="Reports"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ModuleList" />
+        <activity android:name=".EmployeeDetailsActivity" />
+        <activity android:name=".ManagerActivity"></activity>
+        <activity
+            android:name=".Aftertestcomplete"
+            android:label="Test Report"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
     </application>
 

@@ -2,6 +2,7 @@ package dipu.testmodule;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -183,7 +184,7 @@ public class QuestionairActivity extends AppCompatActivity {
                     if (Question+1==ListQuestion.size())
                     {
                         InsertIntoDB();
-                        Alert("Completed Questionair","Thanks for participation!");
+                        NavigateToReport();
                     }
                     else {
 
@@ -272,6 +273,15 @@ public class QuestionairActivity extends AppCompatActivity {
 
     }
 
+    private void NavigateToReport() {
+
+        Intent intent=new Intent(QuestionairActivity.this,Aftertestcomplete.class);
+        intent.putExtra("Obtained",String.valueOf(CorrectAnswer));
+        intent.putExtra("Outof",String.valueOf(ListQuestion.size()));
+        intent.putExtra("TotalTime",TotalTime);
+        startActivity(intent);
+    }
+
     private void CountdownAnimation(){
 
         /*YoYo.with(Techniques.TakingOff)
@@ -311,7 +321,6 @@ public class QuestionairActivity extends AppCompatActivity {
 
     private void FinishTest(){
 
-
     }
 
     private boolean ChechCorrectAnswer(){
@@ -349,7 +358,7 @@ public class QuestionairActivity extends AppCompatActivity {
 
                 if(Title.equals("Completed Questionair")){
 
-                    finish();
+                    NavigateToReport();
 
                 }
                 dialog.cancel();
