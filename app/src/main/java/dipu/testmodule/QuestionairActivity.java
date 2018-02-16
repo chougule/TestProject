@@ -9,7 +9,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 
 import android.widget.Button;
@@ -23,6 +23,9 @@ import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import dipu.testmodule.beans.Questionair;
 
 /**
  * Created by Deepak on 11-Dec-17.
@@ -42,6 +45,7 @@ public class QuestionairActivity extends AppCompatActivity {
     private long TotalTime=0;
     int CorrectAnswer=0;
     int Question=0;
+    int time=30;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,14 +88,14 @@ public class QuestionairActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //CountDownTimer=remaincount;
+        CountDownTimer=remaincount;
         //ct.start();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        //Countdown();
+        Countdown();
     }
 
     public void Countdown() {
@@ -99,7 +103,8 @@ public class QuestionairActivity extends AppCompatActivity {
 
             public void onTick(long millisUntilFinished) {
 
-                Countdown.setText(String.valueOf( millisUntilFinished / 1000));
+                Countdown.setText(String.valueOf( time));
+                time--;
                 CountdownAnimation();
                 remaincount=millisUntilFinished;
             }
@@ -184,7 +189,8 @@ public class QuestionairActivity extends AppCompatActivity {
                     if (Question+1==ListQuestion.size())
                     {
                         InsertIntoDB();
-                        NavigateToReport();
+                        CorrectAnswer++;
+                        Alert("Completed Questionair","Thanks for participation!");
                     }
                     else {
 
@@ -278,8 +284,16 @@ public class QuestionairActivity extends AppCompatActivity {
         Intent intent=new Intent(QuestionairActivity.this,Aftertestcomplete.class);
         intent.putExtra("Obtained",String.valueOf(CorrectAnswer));
         intent.putExtra("Outof",String.valueOf(ListQuestion.size()));
-        intent.putExtra("TotalTime",TotalTime);
+        intent.putExtra("TotalTime",SecToMin(TotalTime));
         startActivity(intent);
+    }
+
+    private String SecToMin(long seconds){
+        Log.d("sec",String.valueOf(seconds));
+            long s = seconds % 60;
+            long m = (seconds / 60) % 60;
+            long h = (seconds / (60 * 60)) % 24;
+            return String.format("%d:%02d:%02d", h,m,s);
     }
 
     private void CountdownAnimation(){
@@ -289,14 +303,17 @@ public class QuestionairActivity extends AppCompatActivity {
                 .playOn(findViewById(R.id.tv_countdown));*/
     }
 
-    private void StartTimer() {
-
-        ct.start();
+    private void StartTimer()
+    {
+        if (ct!=null) {
+            ct.start();
+        }
     }
 
     private void StopTimer() {
-
-        ct.cancel();
+        if (ct!=null) {
+            ct.cancel();
+        }
     }
 
     private void UpdateTotalTimeTaken() {
@@ -314,6 +331,7 @@ public class QuestionairActivity extends AppCompatActivity {
 
     private void NextQuestion(){
 
+        time=30;
         Next.setVisibility(View.GONE);
         Submit.setClickable(true);
         HandleQuestionair();

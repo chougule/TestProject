@@ -8,29 +8,57 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    String UserType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button question=findViewById(R.id.btn_question);
-        Button report=findViewById(R.id.btn_report);
+        Button profile=findViewById(R.id.btn_profile);
+        Button detail=findViewById(R.id.btn_detail);
 
-        question.setOnClickListener(new View.OnClickListener() {
+        Intent intent=getIntent();
+        if (intent.hasExtra("User_Type")){
+
+            UserType=intent.getStringExtra("User_Type");
+
+        }
+        if (UserType.equals("Medical Representative")){
+
+            detail.setText("Attend Test");
+        }
+
+        profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(MainActivity.this,QuestionairActivity.class);
+                Intent intent=new Intent(MainActivity.this,UserProfileActivity.class);
+                intent.putExtra("User_Type",UserType);
                 startActivity(intent);
             }
         });
 
-        report.setOnClickListener(new View.OnClickListener() {
+        detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(MainActivity.this,ReportActivity.class);
-                startActivity(intent);
+                if (UserType.equals("Medical Representative")){
+
+                    startActivity(new Intent(MainActivity.this,ModuleList.class));
+                    finish();
+                }else if (UserType.equals("Manager")){
+
+                    Intent intent=new Intent(MainActivity.this,ManagerActivity.class);
+                    intent.putExtra("User_Type","Manager");
+                    startActivity(intent);
+                    finish();
+                }else if (UserType.equals("Area Manager")){
+
+                    Intent intent=new Intent(MainActivity.this,ManagerActivity.class);
+                    intent.putExtra("User_Type","Area Manager");
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

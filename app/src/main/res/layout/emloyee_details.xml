@@ -7,6 +7,27 @@
     android:padding="16dp">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".4"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart_employee"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".6"
+        android:orientation="vertical">
+
+    <LinearLayout
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -166,5 +187,5 @@
             android:textColor="#000000"
             android:text="15 min"/>
     </LinearLayout>
-
+    </LinearLayout>
 </LinearLayout>

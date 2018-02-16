@@ -1,6 +1,8 @@
 package dipu.testmodule;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +20,8 @@ public class logins extends AppCompatActivity {
     Spinner spinner;
     EditText password;
     Button login;
-    String[] user = { "Select User Type","Manager", "Area Manager", "Employee"  };
-    String UserType="Select User Type";
+    String[] user = {"Select User Type", "Manager", "Area Manager", "Employee"};
+    String UserType = "Select User Type";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,11 +33,11 @@ public class logins extends AppCompatActivity {
 
     private void init() {
 
-        spinner=findViewById(R.id.spin_user);
-        password=findViewById(R.id.edt_password);
-        login=findViewById(R.id.btnlogin);
+        spinner = findViewById(R.id.spin_user);
+        password = findViewById(R.id.edt_password);
+        login = findViewById(R.id.btnlogin);
 
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,user);
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, user);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
 
@@ -43,7 +45,7 @@ public class logins extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                UserType=user[i];
+                UserType = user[i];
             }
 
             @Override
@@ -56,37 +58,53 @@ public class logins extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (UserType.equals("Select User Type")){
+                saveInSP();
+                if (UserType.equals("Select User Type")) {
 
-                    Toast.makeText(logins.this,"Select User Type",Toast.LENGTH_LONG).show();
+                    Toast.makeText(logins.this, "Select User Type", Toast.LENGTH_LONG).show();
                     spinner.requestFocus();
 
-                }else if (password.getText().toString().isEmpty()){
+                } else if (password.getText().toString().isEmpty()) {
 
-                    Toast.makeText(logins.this,"Enter Password",Toast.LENGTH_LONG).show();
+                    Toast.makeText(logins.this, "Enter Password", Toast.LENGTH_LONG).show();
                     password.requestFocus();
 
-                }else {
+                } else {
 
-                    if (UserType.equals("Employee")){
+                    if (UserType.equals("Employee")) {
 
-                        startActivity(new Intent(logins.this,ModuleList.class));
+                        startActivity(new Intent(logins.this, ModuleList.class));
                         finish();
-                    }else if (UserType.equals("Manager")){
+                    } else if (UserType.equals("Manager")) {
 
-                        Intent intent=new Intent(logins.this,ManagerActivity.class);
-                        intent.putExtra("User_Type","Manager");
+                        Intent intent = new Intent(logins.this, ManagerActivity.class);
+                        intent.putExtra("User_Type", "Manager");
                         startActivity(intent);
                         finish();
-                    }else if (UserType.equals("Area Manager")){
+                    } else if (UserType.equals("Area Manager")) {
 
-                        Intent intent=new Intent(logins.this,ManagerActivity.class);
-                        intent.putExtra("User_Type","Area Manager");
+                        Intent intent = new Intent(logins.this, ManagerActivity.class);
+                        intent.putExtra("User_Type", "Area Manager");
                         startActivity(intent);
                         finish();
                     }
                 }
             }
         });
+    }
+
+    private void saveInSP() {
+
+        SharedPreferences sharedPref = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("Name", "Deepak");
+        editor.putString("Email", "Deepak@gmail.com");
+        editor.putString("Mobile", "9999999999");
+        editor.putString("City", "Pune");
+        editor.putString("Manager", "Vishal Patil");
+        editor.putString("Area", "Kothrud");
+        editor.commit();
+        editor.apply();
+
     }
 }
