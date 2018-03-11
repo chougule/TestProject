@@ -1,11 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#28aced</color>
-    <color name="colorPrimaryDark">#FF3FA6D9</color>
-    <color name="colorAccent">#5ac49d</color>
-    <color name="green">#FF43FF40</color>
-    <color name="black">#000000</color>
+
+    <color name="colorPrimary">#7cbfe9</color>
+    <color name="colorPrimaryDark">#3e9fdc</color>
+    <color name="colorPrimaryfent">#8fc2e2</color>
+    <color name="colorAccent">#fa5868</color>
+    <color name="amaze_skyBlue">#0A96CB</color>
+
+    <color name="colorAccentMy">#BB2082</color>
+    <color name="colorAccentMyDark">#8f1964</color>
+    <color name="deep_pink">#dc217f</color>
+    <color name="spring_green">#53FEA8</color>
+    <color name="purple">#8F2894</color>
+    <color name="pink_login_dr">#FF9EFF</color>
+    <color name="yellow_login_dr">#EECE24</color>
     <color name="white">#FFFFFF</color>
-    <color name="colorWhite"></color>
-    <color name="colorDarkGrey">#a19e9e</color>
+    <color name="sp_white">#E6fdfdfd</color>
+    <color name="fent_sky_blue">#9ed2f5</color>
+    <color name="skyBlue">#3493d4</color>
+    <color name="amaze_icon_blue">#4E93C0</color>
+    <color name="amaze_icon_red">#BF392B</color>
+    <color name="amaze_icon_green">#2ECB71</color>
+    <color name="amaze_icon_gray">#34495e</color>
+    <color name="amaze_skyBlue_dark">#40a7e7</color>
+    <color name="amaze_icon_blue1">#77B9E6</color>
+    <color name="amaze_icon_purple">#C6328E</color>
+    <color name="amaze_icon_green_light">#09E39E</color>
+    <color name="amaze_skyBlue_trans">#200A96CB</color>
+    <color name="amaze_orange">#E86322</color>
+    <color name="amaze_orange_trans">#10E86322</color>
+    <color name="amaze_pink_trans">#20BB2082</color>
+    <color name="amaze_red">#E53B24</color>
+    <color name="amaze_chocolate">#721213</color>
+    <color name="amaze_violete">#840053</color>
+    <color name="amaze_light_violete">#BB2083</color>
+    <color name="amaze_green">#83BC31</color>
+    <color name="amaze_green_dark">#648f25</color>
+    <color name="amaze_appIconColor">#1C313C</color>
+    <color name="amaze_saffron">#F03F23</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="black_transparant">#95000000</color>
+    <color name="white_transparant">#99ffffff</color>
+    <color name="secondary_dark">#ff245b63</color>
+    <color name="text_gray">#585858</color>
+    <color name="field_bottom_color">#840053</color>
+    <color name="lightgray">#868282</color>
+    <color name="red">#f92121</color>
+    <color name="green">#069b33</color>
+    <color name="blue">#000099</color>
+    <color name="light_blue">#d90303ff</color>
+    <color name="orange">#FF9900</color>
+    <color name="black">#000000</color>
+    <color name="light_gray">#EBEBEB</color>
+    <color name="Fent_light_gray">#d7d6d6</color>
+    <color name="week_light_gray">#c1bfbf</color>
+    <color name="medium_light_gray">#a4a3a3</color>
+
+    <color name="transparent_black">#80FDF8F8</color>
+    <!--social media color-->
+    <color name="color_facebook">#3B5998</color>
+    <color name="color_linkedIn">#0077B5</color>
+    <color name="color_twitter">#1DA1F2</color>
+    <color name="vpi__background_holo_dark">#ff000000</color>
+    <color name="vpi__background_holo_light">#fff3f3f3</color>
+    <color name="default_circle_indicator_stroke_color">#f78d8d</color>
+    <color name="vpi__bright_foreground_holo_dark">@color/vpi__background_holo_light</color>
+    <color name="vpi__bright_foreground_holo_light">@color/vpi__background_holo_dark</color>
+    <color name="vpi__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
+    <color name="vpi__bright_foreground_disabled_holo_light">#ffb2b2b2</color>
+    <color name="vpi__bright_foreground_inverse_holo_dark">
+        @color/vpi__bright_foreground_holo_light
+    </color>
+    <color name="vpi__bright_foreground_inverse_holo_light">
+        @color/vpi__bright_foreground_holo_dark
+    </color>
+
 </resources>

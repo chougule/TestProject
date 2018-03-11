@@ -1,5 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -15,10 +14,10 @@
         android:layout_gravity="center">
 
         <android.support.v7.widget.AppCompatSpinner
-            android:layout_width="300dp"
             android:id="@+id/spin_user"
+            android:layout_width="300dp"
             android:layout_height="40dp"
-            android:paddingLeft="5dp"
+            style="?android:attr/spinnerDropDownItemStyle"
             android:background="@drawable/gray_square">
 
         </android.support.v7.widget.AppCompatSpinner>
@@ -26,18 +25,31 @@
         <EditText
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:paddingLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/edt_username"
+            android:inputType="text"
+            android:background="@drawable/gray_square"
+            android:hint="User Name"
+            android:paddingLeft="@dimen/padding_15"
+            android:paddingRight="@dimen/padding_15"
+            android:textColorHint="@color/black"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:id="@+id/edt_password"
             android:inputType="textPassword"
             android:background="@drawable/gray_square"
-            android:hint="Password"/>
+            android:hint="Password"
+            android:paddingLeft="@dimen/padding_15"
+            android:paddingRight="@dimen/padding_15"
+            android:textColorHint="@color/black"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnlogin"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
             android:text="Login"
             android:textColor="@color/white"
             android:background="@color/colorPrimary"

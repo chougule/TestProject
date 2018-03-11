@@ -1,7 +1,129 @@
 <resources>
     <string name="app_name">Training Module</string>
-    <string name="info">1.1 Cambridge Assessment will use its reasonable endeavours to ensure that all information on the Site is accurate. However, the Site and material available on the Site is provided for general information purposes only and is not intended to provide comprehensive information or guidance on the subjects covered. Before entering into any contract based on or relating to information on this site, you should obtain full information from the organisation  in relation to such a contract.
+    <string name="title_activity_signUp">Sign Up</string>
+    <string name="title_activity_login">Sign In</string>
 
-\n 1.2 You acknowledge that any reliance on any information or other material contained on this Site is entirely at your own risk and all other warranties, undertakings, conditions and terms, express or implied, whether by common law, statute, custom, trade usage, course of dealings or otherwise (including without limitation as to quality, fitness for purpose, performance or suitability for purpose permitted by law. </string>
-    <string name="title_activity_aftertestcomplete">Aftertestcomplete</string>
+    <!-- Strings related to login -->
+    <string name="prompt_mobile">Mobile Number or Email Id</string>
+    <string name="prompt_email">Email Address</string>
+    <string name="prompt_userName">Name</string>
+    <string name="prompt_password">Password </string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="prompt_mobile_number">We will send SMS with a Confirmation code to
+        this number </string>
+    <string name="prompt_Terms_conditions">By Logging in you agree to AmazeLife <a href=""> Terms of Service</a>,
+        <a href="">Privacy Policy</a> and <a href="">Content Policies</a> </string>
+    <string name="prompt_signUp"><u>Sign Up</u></string>
+    <string name="action_sign_in_short">Go</string>
+    <string name="prompt_login_Otp">Login using OTP</string>
+    <string name="prompt_new_account">Don\'t have an account?</string>
+
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_mobile">This mobile number is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing mobile number
+        completions."</string>
+    <string name="otp_dialog_title">Please verify your Mobile number</string>
+    <string name="tv_EnterOtp">Enter OTP</string>
+    <string name="resend_otp"><u>Resend OTP</u></string>
+    <string name="btn_otp_text">Send OTP</string>
+    <string name="btn_set_password">Sign Up</string>
+    <string name="hint_new_password">Enter Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="title_activity_dash_board">AmazeLife</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">AmazeLife</string>
+    <string name="title_notifications">AmazeLife</string>
+    <string name="title_activity_dash_board_actiity">DashBoardActiity</string>
+    <string name="title_otp">Enter 4 - digit code</string>
+    <string name="prompt_otp_sent">We have sent sms with a Confirmation code to
+       </string>
+    <string name="prompt_Resent_OTP"><u>RESEND OTP</u></string>
+    <string name="prompt_Edit_number"><u>EDIT NUMBER</u></string>
+    <string name="prompt_login_using_password">Login Using Password</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_create_account">Create New Account</string>
+    <string name="network_not_available">No network available </string>
+
+    <string name="action_settings">Settings</string>
+    <bool name="default_circle_indicator_centered">true</bool>
+    <bool name="default_circle_indicator_snap">false</bool>
+    <string name="tab_login">Existing User</string>
+    <string name="tab_signUp">New User</string>
+    <string name="title_activity_login_using_password">Sign Up</string>
+    <string name="tv_frget_pass"><u>Forget Password?</u></string>
+    <string name="prompt_frget_pass">Forget Password</string>
+    <string name="prompt_mob_email">Registered mobile number or Email Id</string>
+    <string name="prompt_using_password">Log in Using Password</string>
+    <string name="tv_reset_password">Reset Password</string>
+    <string name="tv_new_password">Set new Password</string>
+    <string name="tv_new_reset_password">Please enter new password</string>
+    <string name="tv__password">Please enter the new password</string>
+    <string name="tv_confirm_password">Please enter the new password</string>
+    <string name="tv_password_validation">Password must contain atleast 6 characters <br> including upper/lowercase and number </br></string>
+
+    <string name="tv_reset_code">Please enter the reset code</string>
+    <string name="tv_verification_code">Enter 4 digit verification code</string>
+    <string name="pin_content_desc">PIN input field</string>
+    <string name="pin_label_text">PIN</string>
+    <string name="hint_refferal_code">Enter Refferal code(Optional)</string>
+    <string name="hint_mobile_number">Enter Mobile number</string>
+    <string name="hint_email_id">Enter Email Address</string>
+    <string name="tv_refferal_code">relflect refferal name</string>
+    <string name="tv_mobile_number">We will send OTP to your number for verification</string>
+    <string name="tv_email_id">We will send an Email for verification</string>
+    <string name="splas_skip"><a href="">skip</a></string>
+    <string name="sliding_transparent_view_description">Click to return to previous screen</string>
+    <string name="title_activity_dash_board_">DashBoard_Activity</string>
+
+    <string name="Rs">\u20B9</string>
+
+    //Mobile Recharge
+
+    <string name="recharge_type1">Prepaid</string>
+    <string name="recharge_type2">Postpaid</string>
+    <string name="mobilenumber">Mobile Number</string>
+    <string name="operator">Operator/Circle</string>
+    <string name="amount">Amount (in \u20B9)</string>
+    <string name="brouseplan">Brouse Plans</string>
+    <string name="mobile_alert">Enter Valid Mobile Number</string>
+    <string name="operator_alert">Enter Operator</string>
+    <string name="amount_alert">Enert Amount</string>
+    <string name="browse_plan">Browse Plans</string>
+    <string name="trans_password">Transaction Password</string>
+    <string name="trans_passalert">Enter Transaction Password</string>
+
+    //Data Card
+
+    <string name="card_no">Data Card Number</string>
+    <string name="cardno_alert">Enter Valid Data Card Number</string>
+    <string name="recommanded_plan">Select recommended Plans</string>
+
+    //Confirm Mobile Number
+    <string name="req_against">Request Against</string>
+    <string name="total_amt">Total Amount</string>
+    <string name="proceed">proceed</string>
+    <string name="subscrid">Subscriber Id</string>
+    <string name="billunit">Billing Unit</string>
+    <string name="consumno">Consumer Number</string>
+    <string name="mobiletc"><![CDATA[Mobile \n T & C]]></string>
+    <string name="webtc"><![CDATA[Web \n T & C]]></string>
+    <string name="emailtc"><![CDATA[Mail \n T & C]]></string>
+    <string name="select_operator">Select Operator Name</string>
+
+    //GasBill
+    <string name="alert_bill_group_number">Enter Bill Group Number</string>
+    <string name="text_bill_group_number">Bill Group Number</string>
+    <string name="info">Firstly, I created a main layout (vertical) as you see in the code. Then, for each one of the checkboxes I created a horizontal layout. In this case you can play with the colors and fonts of the elements (checkboxes, items, and etc.). I hope it helps.</string>
+
+    <string name="title_activity_splash">Splash</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 </resources>

@@ -5,7 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="dipu.testmodule.MainActivity">
+    tools:context="dipu.testmodule.activity.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_mr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/mr">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".48">
+
+        </View>
+        <View
+            android:id="@+id/check_que"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".4">
+
+        </View>
+
+        <View
+            android:id="@+id/check_report"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".35">
+
+        </View>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".25">
+
+        </View>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_profile"

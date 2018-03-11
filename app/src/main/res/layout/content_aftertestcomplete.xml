@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="dipu.testmodule.Aftertestcomplete"
+    tools:context="dipu.testmodule.activity.Aftertestcomplete"
     tools:showIn="@layout/activity_aftertestcomplete">
 
     <LinearLayout
