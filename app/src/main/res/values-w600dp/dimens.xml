@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <bool name="isItTab">true</bool>
+
+    <dimen name="default_text_size">22.0sp</dimen>
+    <dimen name="text_size10">16.0sp</dimen>
+    <dimen name="text_size5">8.0sp</dimen>
+    <dimen name="text_size8">14.0sp</dimen>
+    <dimen name="text_size12">18.0sp</dimen>
+    <dimen name="text_size13">19.0sp</dimen>
+    <dimen name="text_size14">20.0sp</dimen>
+    <dimen name="text_size18">24.0sp</dimen>
+    <dimen name="text_size20">26.0sp</dimen>
+    <dimen name="text_size22">28.0sp</dimen>
+
+    <dimen name="margin_10">20.0dp</dimen>
+    <dimen name="margin_20">40.0dp</dimen>
+
+    <dimen name="menu_sizeOf_70_btn">110dp</dimen>
+    <dimen name="menu_sizeOf_80_btn">120dp</dimen>
+    <dimen name="menu_sizeOf_90_btn">130dp</dimen>
+    <dimen name="menu_sizeOf_100_btn">140dp</dimen>
+    <dimen name="menu_margin_14">20dp</dimen>
+
+    <dimen name="menu_margin_8">13dp</dimen>
+
+    //foot icon
+    <dimen name="img_foot_width">180.0dp</dimen>
+    <dimen name="img_foot_height">320.0dp</dimen>
+
+    ed_left_right_margin
+    <dimen name="ed_hmt_margin_30">60.0dp</dimen>
+    <dimen name="ed_hmt_height">55.0dp</dimen>
+    <dimen name="btn_hmt_height">50.0dp</dimen>
+
+    /////menu activity
+    <dimen name="menu_icon_width">110dp</dimen>
+    <dimen name="menu_icon_height">110</dimen>
+
+    <dimen name="diary_img_height">250dp</dimen>
+
+    //expert dash
+    <dimen name="expert_dash_top_stud_size">100dp</dimen>
+
+    //dash
+    <dimen name="_dash_top_img_height">350dp</dimen>
+    //dash
+    <dimen name="dash_fetus_img_height">370dp</dimen>
+    <dimen name="dash_fetus_size_circular_img_height">120dp</dimen>
+    <dimen name="dash_top_layout_height">160dp</dimen>
+
+    //diary list item cal size
+    <dimen name="diary_list_cal_size">80dp</dimen>
+
+    <dimen name="regi_as_btn_size">160dp</dimen>
+    <dimen name="regi_as_icon_size">50dp</dimen>
+    <dimen name="regi_as_parent_icon_size">60dp</dimen>
+
+    <dimen name="horizontal_week_size">75dp</dimen>
+
+    <dimen name="communication_fab_margin">20dp</dimen>
+    <dimen name="user_profile_image_size">80dp</dimen>
+    <dimen name="user_profile_image_container_size">120dp</dimen>
+
+
+
+    ///dashboard single calender
+    <dimen name="single_cal_height">110dp</dimen>
+    <dimen name="single_cal_text_size">16sp</dimen>
+    <dimen name="single_cal_date_size">25sp</dimen>
+    <dimen name="dash_menu_ll_width">30dp</dimen>
+    <dimen name="dash_menu_ll_heigth">50sp</dimen>
+
+    <dimen name="acad_cal_cell_size">50dp</dimen>
+
+    <dimen name="add_note_top_rl_size">90dp</dimen>
+
+    //school details
+    <dimen name="schoolDetail_logo_size">150dp</dimen>
+
+    <dimen name="expandListView_up_dowon_arrow_margin">20dp</dimen>
+
+</resources>

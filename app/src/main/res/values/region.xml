@@ -1,0 +1,94 @@
+<resources>
+
+    <string-array name="region">
+        <item> Select Region</item>
+        <item>	Durgapur	</item>
+        <item>	Kolkata	</item>
+        <item>	Siliguri	</item>
+        <item>	Guwahati	</item>
+        <item>	Imphal	</item>
+        <item>	Dibrugarh	</item>
+        <item>	Silchar	</item>
+        <item>	Ranchi	</item>
+        <item>	Patna	</item>
+        <item>	Raipur	</item>
+        <item>	Bhubaneshwar	</item>
+        <item>	Mumbai	</item>
+        <item>	Hyderabad	</item>
+        <item>	Karimnagar	</item>
+        <item>	Vizag	</item>
+        <item>	Warangal 	</item>
+        <item>	Nellore 	</item>
+        <item>	Vijaywada	</item>
+        <item>	Bangalore	</item>
+        <item>	Mysore 	</item>
+        <item>	Mangalore	</item>
+        <item>	Hubli 	</item>
+        <item>	Cochin	</item>
+        <item>	Calicut	</item>
+        <item>	Trivandrum	</item>
+        <item>	Kottayam/Tiruvalla	</item>
+        <item>	Trichur 	</item>
+        <item>	Chennai 	</item>
+        <item>	Vellore+Chennai	</item>
+        <item>	Pondicherry	</item>
+        <item>	Trichy	</item>
+        <item>	Madurai	</item>
+        <item>	Salem	</item>
+        <item>	Coimbatore	</item>
+        <item>	Jalgaon	</item>
+        <item>	Ahmednagar 	</item>
+        <item>	Pune	</item>
+        <item>	Solapur	</item>
+        <item>	Kolhapur	</item>
+        <item>	Aurangabad	</item>
+        <item>	Nanded	</item>
+        <item>	GOA	</item>
+        <item>	Nagpur	</item>
+        <item>	Akola	</item>
+        <item>	Nashik 	</item>
+        <item>	Mumbai	</item>
+        <item>	 Thane 	</item>
+        <item>	Dombivali	</item>
+        <item>	 Navi Mumbai 	</item>
+        <item>	Mira Road	</item>
+        <item>	Airoli	</item>
+        <item>	Indore	</item>
+        <item>	Gwalior	</item>
+        <item>	Bhopal	</item>
+        <item>	Jabalpur	</item>
+        <item>	Ahmedabad	</item>
+        <item>	Baroda	</item>
+        <item>	Surat	</item>
+        <item>	Rajkot	</item>
+        <item>	Delhi	</item>
+        <item>	Jaipur	</item>
+        <item>	Jodhpur	</item>
+        <item>	Udaipur	</item>
+        <item>	Rajashtan	</item>
+        <item>	Ludhiana	</item>
+        <item>	Chandigarh	</item>
+        <item>	Amritsar	</item>
+        <item>	Srinagar	</item>
+        <item>	Punjab	</item>
+        <item>	Gurgaon	</item>
+        <item>	Faridabad	</item>
+        <item>	ambala	</item>
+        <item>	Haryana	</item>
+        <item>	Faridabad	</item>
+        <item>	Dehradun	</item>
+        <item>	Meerut	</item>
+        <item>	Moradabad	</item>
+        <item>	Bareilly	</item>
+        <item>	Noida	</item>
+        <item>	Ghaziabad	</item>
+        <item>	Agra	</item>
+        <item>	Gr. Noida	</item>
+        <item>	Varanasi	</item>
+        <item>	Kanpur	</item>
+        <item>	Gorakhpur	</item>
+        <item>	Lucknow	</item>
+
+    </string-array>
+
+</resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <bool name="isItTab">true</bool>
+
+    <dimen name="default_text_size">22.0sp</dimen>
+    <dimen name="text_size10">20.0sp</dimen>
+    <dimen name="text_size5">11.0sp</dimen>
+    <dimen name="text_size8">18.0sp</dimen>
+    <dimen name="text_size12">22.0sp</dimen>
+    <dimen name="text_size13">23.0sp</dimen>
+    <dimen name="text_size14">24.0sp</dimen>
+    <dimen name="text_size18">28.0sp</dimen>
+    <dimen name="text_size20">30.0sp</dimen>
+    <dimen name="text_size22">32.0sp</dimen>
+
+    <dimen name="margin_10">30.0dp</dimen>
+    <dimen name="margin_20">60.0dp</dimen>
+
+    <dimen name="menu_sizeOf_myBaby_btn">190dp</dimen>
+    <dimen name="menu_sizeOf_70_btn">150dp</dimen>
+    <dimen name="menu_sizeOf_80_btn">160dp</dimen>
+    <dimen name="menu_sizeOf_90_btn">170dp</dimen>
+    <dimen name="menu_sizeOf_100_btn">180dp</dimen>
+    <dimen name="menu_margin_14">27dp</dimen>
+    <dimen name="menu_margin_8">20dp</dimen>
+    <dimen name="menu_margin_18">36dp</dimen>
+    <dimen name="menu_margin_28">52dp</dimen>
+
+    ed_left_right_margin
+    <dimen name="ed_hmt_margin_30">120.0dp</dimen>
+    <dimen name="ed_hmt_height">66.0dp</dimen>
+    <dimen name="btn_hmt_height">60.0dp</dimen>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+
+
+    /////menu activity
+    <dimen name="menu_icon_width">123dp</dimen>
+    <dimen name="menu_icon_height">123dp</dimen>
+
+    <dimen name="diary_img_height">3000dp</dimen>
+
+    //expert dash
+    <dimen name="expert_dash_top_stud_size">120dp</dimen>
+
+    //dash
+    <dimen name="_dash_top_img_height">400dp</dimen>
+
+    //dash
+    <dimen name="dash_fetus_img_height">420dp</dimen>
+    <dimen name="dash_fetus_size_circular_img_height">140dp</dimen>
+    <dimen name="dash_top_layout_height">190dp</dimen>
+
+    //diary list item cal size
+    <dimen name="diary_list_cal_size">100dp</dimen>
+
+    <dimen name="regi_as_btn_size">170dp</dimen>
+    <dimen name="regi_as_icon_size">55dp</dimen>
+    <dimen name="regi_as_parent_icon_size">65dp</dimen>
+
+    <dimen name="horizontal_week_size">80dp</dimen>
+
+    <dimen name="communication_fab_margin">20dp</dimen>
+
+    <dimen name="user_profile_image_size">90dp</dimen>
+    <dimen name="user_profile_image_container_size">130dp</dimen>
+
+
+    ///dashboard single calender
+    <dimen name="single_cal_height">120dp</dimen>
+    <dimen name="single_cal_text_size">16sp</dimen>
+    <dimen name="single_cal_date_size">25sp</dimen>
+    <dimen name="dash_menu_ll_width">30dp</dimen>
+    <dimen name="dash_menu_ll_heigth">50sp</dimen>
+
+    <dimen name="acad_cal_cell_size">60dp</dimen>
+    <dimen name="add_note_top_rl_size">100dp</dimen>
+
+    //school details
+    <dimen name="schoolDetail_logo_size">170dp</dimen>
+
+    <dimen name="expandListView_up_dowon_arrow_margin">22dp</dimen>
+
+</resources>

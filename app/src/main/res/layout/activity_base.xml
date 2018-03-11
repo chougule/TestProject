@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_base"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:mcontext="xyz.teknol.preto3.activities.common.BaseActivity">
+
+    <!-- No Network and retry layout-->
+
+    <RelativeLayout
+        android:id="@+id/frag_no_network_RL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/img_no_network"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+           />
+        <TextView
+            android:id="@+id/tv_no_network_available"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/network_not_available"
+            android:layout_below="@+id/img_no_network"
+            android:textSize="@dimen/text_size18"/>
+        <Button
+            android:id="@+id/btn_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Retry"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@+id/tv_no_network_available"/>
+    </RelativeLayout>
+
+
+    <dipu.testmodule.CustomProgressBar.MaterialProgressBar
+        android:id="@+id/parent_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:elevation="8dp"
+        android:visibility="gone"
+        />
+    <FrameLayout
+        android:id="@+id/base_frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="40dp" >
+
+    </FrameLayout>
+</RelativeLayout>
