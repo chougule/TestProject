@@ -218,13 +218,11 @@ public boolean getNetworkState() {
 }
 
     private void setUpToolBar() {
-       /* toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_common);
-        setSupportActionBar(toolbar);*/
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_common);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    public void HideToolbar(){
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-    }
+
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();

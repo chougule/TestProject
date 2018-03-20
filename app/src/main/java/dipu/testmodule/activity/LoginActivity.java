@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkError;
@@ -33,6 +34,7 @@ public class LoginActivity extends BaseActivity {
 
     Spinner spinner;
     EditText username,password;
+    TextView register;
     Button login;
     String[] user = {"Select User Type", "Regional Manager", "Area Manager", "Medical Representative"};
     String UserType = "Select User Type";
@@ -41,7 +43,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
 
         init();
 
@@ -60,6 +62,7 @@ public class LoginActivity extends BaseActivity {
 
     private void init() {
 
+        register=findViewById(R.id.link_signup);
         spinner = findViewById(R.id.spin_user);
         password = findViewById(R.id.edt_password);
         login = findViewById(R.id.btnlogin);
@@ -68,6 +71,13 @@ public class LoginActivity extends BaseActivity {
         aa.setDropDownViewResource(R.layout.spinneradapter);
         spinner.setAdapter(aa);
 
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(LoginActivity.this,UserEntryActivity.class);
+                startActivity(intent);
+            }
+        });
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

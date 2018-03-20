@@ -4,17 +4,21 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,22 +38,24 @@ import dipu.testmodule.beans.Questionair;
 public class QuestionairActivity extends BaseActivity {
 
     DBHelper mydb;
-    TextView Que_no,Que,Option_1,Option_2,Option_3,Option_4,Countdown;
-    RadioButton opt_1,opt_2,opt_3,opt_4;
-    Button Submit,Next;
+    TextView Que_no, Que, Option_1, Option_2, Option_3, Option_4, Countdown;
+    RelativeLayout opt_1, opt_2, opt_3, opt_4;
+    View check1, check2, check3, check4, uncheck1, uncheck2, uncheck3, uncheck4;
+    Button Submit, Next;
     CountDownTimer ct;
     ArrayList<Questionair> ListQuestion;
-    int Answer;
-    long remaincount=31000;
-    long CountDownTimer=31000;
-    private long TotalTime=0;
-    int CorrectAnswer=0;
-    int Question=0;
-    int time=30;
+    int Answer = 0;
+    long remaincount = 31000;
+    long CountDownTimer = 31000;
+    private long TotalTime = 0;
+    int CorrectAnswer = 0;
+    int Question = 0;
+    int time = 30;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_questionair);
+        getLayoutInflater().inflate(R.layout.activity_questionair_second, mBaseFrameContainer);
 
         init();
         DetailsAlert();
@@ -65,7 +71,6 @@ public class QuestionairActivity extends BaseActivity {
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
 
-
                 dialog.cancel();
                 Countdown();
                 GenerateQuestionar();
@@ -73,7 +78,7 @@ public class QuestionairActivity extends BaseActivity {
 
             }
         });
-         AlertDialog b = dialogBuilder.create();
+        AlertDialog b = dialogBuilder.create();
         b.setCancelable(false);
         b.show();
     }
@@ -81,14 +86,14 @@ public class QuestionairActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        CountDownTimer=remaincount;
+        CountDownTimer = remaincount;
         StopTimer();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        CountDownTimer=remaincount;
+        CountDownTimer = remaincount;
         //ct.start();
     }
 
@@ -99,26 +104,25 @@ public class QuestionairActivity extends BaseActivity {
     }
 
     public void Countdown() {
-        ct=new CountDownTimer(CountDownTimer, 1000) {
+        ct = new CountDownTimer(CountDownTimer, 1000) {
 
             public void onTick(long millisUntilFinished) {
 
-                Countdown.setText(String.valueOf( time));
+                Countdown.setText(String.valueOf(time));
                 time--;
                 CountdownAnimation();
-                remaincount=millisUntilFinished;
+                remaincount = millisUntilFinished;
             }
 
             public void onFinish() {
 
-                if (Question+1==ListQuestion.size())
-                {
+                if (Question + 1 == ListQuestion.size()) {
                     InsertIntoDB();
-                    Alert("Completed Questionair","Thanks for participation!");
+                    Alert("Completed Questionair", "Thanks for participation!");
 
-                }else {
+                } else {
 
-                    CountDownTimer=30001;
+                    CountDownTimer = 30001;
                     Countdown.setText("done!");
                     TotalTime = TotalTime + 30001;
                     SubmitQuestion();
@@ -129,25 +133,19 @@ public class QuestionairActivity extends BaseActivity {
 
         }.start();
     }
+
     private void HandleQuestionair() {
 
-        Que_no.setText(String.valueOf(Question+1)+"/"+ListQuestion.size());
+        Que_no.setText(String.valueOf(Question + 1) + "/" + ListQuestion.size());
         Que.setText(ListQuestion.get(Question).getQuestion());
         Option_1.setText(ListQuestion.get(Question).getOptions().get(0));
         Option_2.setText(ListQuestion.get(Question).getOptions().get(1));
         Option_3.setText(ListQuestion.get(Question).getOptions().get(2));
         Option_4.setText(ListQuestion.get(Question).getOptions().get(3));
 
-        opt_1.setChecked(false);
-        opt_2.setChecked(false);
-        opt_3.setChecked(false);
-        opt_4.setChecked(false);
         Submit.setText("Submit");
-        Submit.setTextColor(getResources().getColor(R.color.black));
+        Submit.setTextColor(getResources().getColor(R.color.white));
 
-        YoYo.with(Techniques.SlideInRight)
-                .duration(700)
-                .playOn(findViewById(R.id.cardview));
     }
 
     @Override
@@ -159,50 +157,57 @@ public class QuestionairActivity extends BaseActivity {
     private void init() {
         mydb = new DBHelper(this);
 
-        List<Questionair> a=new ArrayList<>();
-        Que_no=findViewById(R.id.tv_queno);
+        List<Questionair> a = new ArrayList<>();
+        Que_no = findViewById(R.id.tv_queno);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        Que=findViewById(R.id.tv_que);
-        Option_1=findViewById(R.id.option_1);
-        Option_2=findViewById(R.id.option_2);
-        Option_3=findViewById(R.id.option_3);
-        Option_4=findViewById(R.id.option_4);
-        Countdown=findViewById(R.id.tv_countdown);
+        Que = findViewById(R.id.tv_que);
+        Option_1 = findViewById(R.id.option_1);
+        Option_2 = findViewById(R.id.option_2);
+        Option_3 = findViewById(R.id.option_3);
+        Option_4 = findViewById(R.id.option_4);
+        Countdown = findViewById(R.id.tv_countdown);
 
-        opt_1 =findViewById(R.id.radio_1);
-        opt_2=findViewById(R.id.radio_2);
-        opt_3=findViewById(R.id.radio_3);
-        opt_4=findViewById(R.id.radio_4);
+        opt_1 = findViewById(R.id.rl_option1);
+        opt_2 = findViewById(R.id.rl_option2);
+        opt_3 = findViewById(R.id.rl_option3);
+        opt_4 = findViewById(R.id.rl_option4);
 
-        Submit=findViewById(R.id.submit);
-        Next=findViewById(R.id.card_Next);
+        check1 = findViewById(R.id.view_select1);
+        check2 = findViewById(R.id.view_select2);
+        check3 = findViewById(R.id.view_select3);
+        check4 = findViewById(R.id.view_select4);
+        uncheck1 = findViewById(R.id.view_unselect1);
+        uncheck2 = findViewById(R.id.view_unselect2);
+        uncheck3 = findViewById(R.id.view_unselect3);
+        uncheck4 = findViewById(R.id.view_unselect4);
+
+        Submit = findViewById(R.id.submit);
+        Next = findViewById(R.id.card_Next);
 
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (Validate()){
+                if (Validate()) {
                     UpdateTotalTimeTaken();
                     StopTimer();
 
-                    if (Question+1==ListQuestion.size())
-                    {
+                    if (Question + 1 == ListQuestion.size()) {
                         InsertIntoDB();
                         CorrectAnswer++;
-                        Alert("Completed Questionair","Thanks for participation!");
-                    }
-                    else {
+                        Alert("Completed Questionair", "Thanks for participation!");
+                    } else {
 
-                        if(ChechCorrectAnswer()){
+                        if (ChechCorrectAnswer()) {
 
                             Submit.setText("Correct");
-                            Submit.setTextColor(getResources().getColor(R.color.green));
+                            Submit.setTextColor(getResources().getColor(R.color.yellow_login_dr));
                             CorrectAnswer++;
 
                         } else {
 
-                            Alert("Wrong Answer","The Correct answer is "+ListQuestion.get(Question).getAnswerDescription());
+                            WrongAnsAlert(ListQuestion.get(Question).getAnswerDescription());
                         }
 
                         SubmitQuestion();
@@ -222,146 +227,172 @@ public class QuestionairActivity extends BaseActivity {
             }
         });
 
-        opt_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        opt_1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onClick(View view) {
 
-                if (b){
+                Answer = 1;
 
-                    Answer=0;
-                    opt_2.setChecked(false);
-                    opt_3.setChecked(false);
-                    opt_4.setChecked(false);
-                }
+                check1.setVisibility(View.VISIBLE);
+                check2.setVisibility(View.GONE);
+                check3.setVisibility(View.GONE);
+                check4.setVisibility(View.GONE);
+
             }
         });
 
-        opt_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        opt_2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onClick(View view) {
 
-                if (b){
-                    Answer=1;
-                    opt_1.setChecked(false);
-                    opt_3.setChecked(false);
-                    opt_4.setChecked(false);
-                }
+                Answer = 2;
+                check1.setVisibility(View.GONE);
+                check2.setVisibility(View.VISIBLE);
+                check3.setVisibility(View.GONE);
+                check4.setVisibility(View.GONE);
             }
         });
 
-        opt_3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        opt_3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onClick(View view) {
 
-                if (b){
-
-                    Answer=2;
-                    opt_2.setChecked(false);
-                    opt_4.setChecked(false);
-                    opt_1.setChecked(false);
-                }
+                Answer = 3;
+                check1.setVisibility(View.GONE);
+                check2.setVisibility(View.GONE);
+                check3.setVisibility(View.VISIBLE);
+                check4.setVisibility(View.GONE);
             }
         });
-
-        opt_4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        opt_4.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onClick(View view) {
 
-                if (b){
-
-                    Answer=3;
-                    opt_2.setChecked(false);
-                    opt_3.setChecked(false);
-                    opt_1.setChecked(false);
-                }
+                Answer = 4;
+                check1.setVisibility(View.GONE);
+                check2.setVisibility(View.GONE);
+                check3.setVisibility(View.GONE);
+                check4.setVisibility(View.VISIBLE);
             }
         });
-
     }
 
     private void NavigateToReport() {
 
-        Intent intent=new Intent(QuestionairActivity.this,Aftertestcomplete.class);
-        intent.putExtra("Obtained",String.valueOf(CorrectAnswer));
-        intent.putExtra("Outof",String.valueOf(ListQuestion.size()));
-        intent.putExtra("TotalTime",SecToMin(TotalTime));
+        Intent intent = new Intent(QuestionairActivity.this, Aftertestcomplete.class);
+        intent.putExtra("Obtained", String.valueOf(CorrectAnswer));
+        intent.putExtra("Outof", String.valueOf(ListQuestion.size()));
+        intent.putExtra("TotalTime", SecToMin(TotalTime));
         startActivity(intent);
     }
 
-    private String SecToMin(long seconds){
-        Log.d("sec",String.valueOf(seconds));
-            long s = seconds % 60;
-            long m = (seconds / 60) % 60;
-            long h = (seconds / (60 * 60)) % 24;
-            return String.format("%d:%02d:%02d", h,m,s);
+    private String SecToMin(long seconds) {
+        Log.d("sec", String.valueOf(seconds));
+        long s = seconds % 60;
+        long m = (seconds / 60) % 60;
+        long h = (seconds / (60 * 60)) % 24;
+        return String.format("%d:%02d:%02d", h, m, s);
     }
 
-    private void CountdownAnimation(){
+    private void CountdownAnimation() {
 
         /*YoYo.with(Techniques.TakingOff)
                 .duration(1000)
                 .playOn(findViewById(R.id.tv_countdown));*/
     }
 
-    private void StartTimer()
-    {
-        if (ct!=null) {
+    private void StartTimer() {
+        if (ct != null) {
             ct.start();
         }
     }
 
     private void StopTimer() {
-        if (ct!=null) {
+        if (ct != null) {
             ct.cancel();
         }
     }
 
     private void UpdateTotalTimeTaken() {
 
-        TotalTime=TotalTime+remaincount;
+        TotalTime = TotalTime + remaincount;
     }
 
-    private void SubmitQuestion(){
+    private void SubmitQuestion() {
 
         Question++;
         Submit.setClickable(false);
         Next.setVisibility(View.VISIBLE);
+        check1.setVisibility(View.GONE);
+        check2.setVisibility(View.GONE);
+        check3.setVisibility(View.GONE);
+        check4.setVisibility(View.GONE);
 
     }
 
-    private void NextQuestion(){
+    private void NextQuestion() {
 
-        time=30;
+        time = 30;
         Next.setVisibility(View.GONE);
         Submit.setClickable(true);
         HandleQuestionair();
     }
 
-    private void FinishTest(){
+    private void FinishTest() {
 
     }
 
-    private boolean ChechCorrectAnswer(){
-        boolean Check=false;
+    private boolean ChechCorrectAnswer() {
+        boolean Check = false;
 
-        if (Answer == ListQuestion.get(Question).getAnswer()) {
+        if (Answer-1 == ListQuestion.get(Question).getAnswer()) {
 
-            Check=true;
+            Check = true;
         }
         return Check;
     }
 
     private void InsertIntoDB() {
 
-        SQLiteDatabase db=mydb.getWritableDatabase();
-        ContentValues cv=new ContentValues();
-        cv.put("Obtained",String.valueOf(CorrectAnswer));
-        cv.put("Outof",String.valueOf(ListQuestion.size()));
-        cv.put("TotalTime",TotalTime);
-        db.insert("Questionair",null,cv);
+        SQLiteDatabase db = mydb.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("Obtained", String.valueOf(CorrectAnswer));
+        cv.put("Outof", String.valueOf(ListQuestion.size()));
+        cv.put("TotalTime", TotalTime);
+        db.insert("Questionair", null, cv);
     }
 
-    private void Alert(final String Title , String Anser) {
+    private void WrongAnsAlert(String answer){
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, R.style.CustomDialog);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.alert_wrongans, null);
+        TextView title=dialogView.findViewById(R.id.tv_wrongans);
+        TextView correctans=dialogView.findViewById(R.id.tv_alert_wrightans);
+        title.setText("Wrong \n Answer");
+        correctans.setText(answer);
+        Button button=dialogView.findViewById(R.id.btn_alert_ok);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog alertDialog = dialogBuilder.create();
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        /*dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                dialog.cancel();
+            }
+        });*/
+
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
+    }
+
+    private void Alert(final String Title, String Anser) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         /*LayoutInflater inflater = this.getLayoutInflater();
@@ -391,11 +422,11 @@ public class QuestionairActivity extends BaseActivity {
 
     private boolean Validate() {
 
-        boolean Check =true;
-        if (opt_1.isChecked()==false&&opt_2.isChecked()==false&&opt_3.isChecked()==false&&opt_4.isChecked()==false){
+        boolean Check = true;
+        if (Answer == 0) {
 
-            Toast.makeText(this,"Please Select the Correct answer",Toast.LENGTH_SHORT).show();
-            Check=false;
+            Toast.makeText(this, "Please Select the Correct answer", Toast.LENGTH_SHORT).show();
+            Check = false;
         }
         return Check;
     }
@@ -403,10 +434,10 @@ public class QuestionairActivity extends BaseActivity {
     private void GenerateQuestionar() {
 
         ListQuestion = new ArrayList<>();
-        Questionair questionair=new Questionair();
+        Questionair questionair = new Questionair();
         questionair.setQuestion_id("1");
         questionair.setQuestion("What is Android");
-        ArrayList<String> option=new ArrayList<>();
+        ArrayList<String> option = new ArrayList<>();
         option.add("Mobile Company");
         option.add("Operating System");
         option.add("Device");
@@ -417,10 +448,10 @@ public class QuestionairActivity extends BaseActivity {
         questionair.setAnswer(1);
         ListQuestion.add(questionair);
 
-        Questionair questionair1=new Questionair();
+        Questionair questionair1 = new Questionair();
         questionair1.setQuestion_id("2");
         questionair1.setQuestion("Which is Android latest released version");
-        ArrayList<String> option1=new ArrayList<>();
+        ArrayList<String> option1 = new ArrayList<>();
         option1.add("Lollypop");
         option1.add("Orieo");
         option1.add("Nogat");
@@ -431,10 +462,10 @@ public class QuestionairActivity extends BaseActivity {
         questionair1.setAnswer(1);
         ListQuestion.add(questionair1);
 
-        Questionair questionair2=new Questionair();
+        Questionair questionair2 = new Questionair();
         questionair2.setQuestion_id("3");
         questionair2.setQuestion("Does Android support keyboard");
-        ArrayList<String> option2=new ArrayList<>();
+        ArrayList<String> option2 = new ArrayList<>();
         option2.add("Yes");
         option2.add("No");
         option2.add("No But we can use external keyboard");
@@ -445,10 +476,10 @@ public class QuestionairActivity extends BaseActivity {
         questionair2.setAnswer(2);
         ListQuestion.add(questionair2);
 
-        Questionair questionair3=new Questionair();
+        Questionair questionair3 = new Questionair();
         questionair3.setQuestion_id("4");
         questionair3.setQuestion("The first android phone was launched by");
-        ArrayList<String> option3=new ArrayList<>();
+        ArrayList<String> option3 = new ArrayList<>();
         option3.add("Samsung");
         option3.add("Nokia");
         option3.add("Motorola");
@@ -459,10 +490,10 @@ public class QuestionairActivity extends BaseActivity {
         questionair3.setAnswer(3);
         ListQuestion.add(questionair3);
 
-        Questionair questionair4=new Questionair();
+        Questionair questionair4 = new Questionair();
         questionair4.setQuestion_id("5");
         questionair4.setQuestion("Who invented Android?");
-        ArrayList<String> option4=new ArrayList<>();
+        ArrayList<String> option4 = new ArrayList<>();
         option4.add("Mark");
         option4.add("John");
         option4.add("Andy Rubin");
@@ -473,10 +504,10 @@ public class QuestionairActivity extends BaseActivity {
         questionair4.setAnswer(2);
         ListQuestion.add(questionair4);
 
-        Questionair questionair5=new Questionair();
+        Questionair questionair5 = new Questionair();
         questionair5.setQuestion_id("6");
         questionair5.setQuestion("Who is owner of Android");
-        ArrayList<String> option5=new ArrayList<>();
+        ArrayList<String> option5 = new ArrayList<>();
         option5.add("Google");
         option5.add("Samsung");
         option5.add("Microsoft");
@@ -487,10 +518,10 @@ public class QuestionairActivity extends BaseActivity {
         questionair5.setAnswer(0);
         ListQuestion.add(questionair5);
 
-        Questionair questionair6=new Questionair();
+        Questionair questionair6 = new Questionair();
         questionair6.setQuestion_id("1");
         questionair6.setQuestion("What is Android");
-        ArrayList<String> option6=new ArrayList<>();
+        ArrayList<String> option6 = new ArrayList<>();
         option6.add("Mobile Company");
         option6.add("Operating System");
         option6.add("Device");

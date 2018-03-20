@@ -7,6 +7,8 @@
     tools:mcontext="xyz.teknol.preto3.activities.common.BaseActivity">
 
     <!-- No Network and retry layout-->
+    <include layout="@layout/toolbar_layout"></include>
+
 
     <RelativeLayout
         android:id="@+id/frag_no_network_RL"
@@ -53,7 +55,7 @@
         android:id="@+id/base_frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="40dp" >
+        android:paddingTop="45dp" >
 
     </FrameLayout>
 </RelativeLayout>

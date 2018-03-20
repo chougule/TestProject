@@ -62,7 +62,6 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_userentry);
 
         init();
-        HideToolbar();
         GenerateSpinnerData();
         SetSpinnerAdapter();
     }
