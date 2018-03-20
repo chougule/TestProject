@@ -16,15 +16,16 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="34dp"
             android:src="@drawable/conedlogo" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spin_user"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
             style="?android:attr/spinnerDropDownItemStyle">
 
         </android.support.v7.widget.AppCompatSpinner>
