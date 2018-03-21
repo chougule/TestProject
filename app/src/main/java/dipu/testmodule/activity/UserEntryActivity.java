@@ -39,7 +39,7 @@ import dipu.testmodule.helper.Alerts;
 public class UserEntryActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     SpManager spManager;
-    TextView skip;
+    View view_city,view_mgr,view_area;
     RadioGroup radioGroup;
     EditText name, email, mobile;
     Spinner city, manager, area;
@@ -59,7 +59,7 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_userentry);
+        getLayoutInflater().inflate(R.layout.activity_userentry,mBaseFrameContainer);
 
         init();
         GenerateSpinnerData();
@@ -127,7 +127,7 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
 
     private void init() {
 
-        skip = findViewById(R.id.tv_entry_skip);
+        //skip = findViewById(R.id.tv_entry_skip);
         radioGroup = findViewById(R.id.radio_gp_entry);
         name = findViewById(R.id.edt_entry_name);
         email = findViewById(R.id.edt_entry_email);
@@ -136,8 +136,10 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
         manager = findViewById(R.id.spin_entry_mgr);
         area = findViewById(R.id.spin_entry_area);
         submit = findViewById(R.id.btn_entry_submit);
-
-        skip.setOnClickListener(this);
+        view_city=findViewById(R.id.view_area);
+        view_mgr=findViewById(R.id.view_area);
+        view_area=findViewById(R.id.view_area);
+        //skip.setOnClickListener(this);
         submit.setOnClickListener(this);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -148,6 +150,8 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
                     case R.id.radio_region_mgr:
                         user_type = "Regional Manager";
                         city.setSelection(0);
+                        view_area.setVisibility(View.GONE);
+                        view_mgr.setVisibility(View.GONE);
                         manager.setVisibility(View.GONE);
                         area.setVisibility(View.GONE);
                         break;
@@ -157,6 +161,8 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
                         city.setSelection(0);
                         manager.setVisibility(View.VISIBLE);
                         area.setVisibility(View.GONE);
+                        view_area.setVisibility(View.GONE);
+                        view_mgr.setVisibility(View.VISIBLE);
                         adapter_mgr = new ArrayAdapter(UserEntryActivity.this, R.layout.spinneradapter, ListMgr);
                         adapter_mgr.setDropDownViewResource(R.layout.spinneradapter);
                         manager.setAdapter(adapter_mgr);
@@ -167,6 +173,9 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
                         city.setSelection(0);
                         manager.setVisibility(View.VISIBLE);
                         area.setVisibility(View.VISIBLE);
+                        view_city.setVisibility(View.VISIBLE);
+                        view_area.setVisibility(View.VISIBLE);
+                        view_mgr.setVisibility(View.VISIBLE);
                         adapter_area = new ArrayAdapter(UserEntryActivity.this, R.layout.spinneradapter, ListArea);
                         adapter_area.setDropDownViewResource(R.layout.spinneradapter);
                         area.setAdapter(adapter_area);
@@ -184,10 +193,6 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
 
         switch (view.getId()) {
 
-            case R.id.tv_entry_skip:
-                startActivity(new Intent(UserEntryActivity.this, LoginActivity.class));
-                finish();
-                break;
             case R.id.btn_entry_submit:
                 if (Validate()) {
 

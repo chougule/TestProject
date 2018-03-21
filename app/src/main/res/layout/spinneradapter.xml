@@ -2,7 +2,8 @@
     android:id="@android:id/text1"
     style="?android:attr/spinnerDropDownItemStyle"
     android:singleLine="true"
-    android:textSize="@dimen/text_size18"
+    android:textSize="16dp"
     android:layout_width="match_parent"
+    android:textColor="@color/black"
     android:layout_height="?attr/dropdownListPreferredItemHeight"
     android:ellipsize="marquee"/>

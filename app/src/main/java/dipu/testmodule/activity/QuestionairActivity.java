@@ -284,6 +284,7 @@ public class QuestionairActivity extends BaseActivity {
         intent.putExtra("Outof", String.valueOf(ListQuestion.size()));
         intent.putExtra("TotalTime", SecToMin(TotalTime));
         startActivity(intent);
+        finish();
     }
 
     private String SecToMin(long seconds) {

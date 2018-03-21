@@ -3,20 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_entry_skip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Skip"
-        android:textColor="@color/colorPrimary"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:padding="16dp"/>
-
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@+id/tv_entry_skip"
+    android:paddingTop="@dimen/padding_10"
     android:orientation="vertical"
     android:layout_above="@+id/btn_entry_submit">
 
@@ -63,7 +53,50 @@
                 android:text="Medical Representative" />
         </RadioGroup>
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/edt_entry_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/edt_entry_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/edt_entry_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mobile Number"
+                android:inputType="number"
+                android:maxLength="10"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<EditText
             android:id="@+id/edt_entry_name"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -101,18 +134,22 @@
             android:inputType="number"
             android:maxLength="15"
             android:paddingLeft="@dimen/padding_15"
-            android:paddingRight="@dimen/padding_15" />
+            android:paddingRight="@dimen/padding_15" />-->
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spin_entry_city"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
-            style="?android:attr/spinnerDropDownItemStyle"
-            android:background="@drawable/gray_square"
-            >
+            style="?android:attr/spinnerDropDownItemStyle">
 
         </android.support.v7.widget.AppCompatSpinner>
+
+        <View
+            android:id="@+id/view_city"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/medium_light_gray"/>
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spin_entry_mgr"
@@ -120,11 +157,16 @@
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:visibility="gone"
-            style="?android:attr/spinnerDropDownItemStyle"
-            android:background="@drawable/gray_square"
-            >
+            style="?android:attr/spinnerDropDownItemStyle">
 
         </android.support.v7.widget.AppCompatSpinner>
+
+        <View
+            android:visibility="gone"
+            android:id="@+id/view_mgr"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/medium_light_gray"/>
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spin_entry_area"
@@ -132,12 +174,15 @@
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:visibility="gone"
-            style="?android:attr/spinnerDropDownItemStyle"
-            android:background="@drawable/gray_square"
-            >
+            style="?android:attr/spinnerDropDownItemStyle">
 
         </android.support.v7.widget.AppCompatSpinner>
-
+        <View
+            android:visibility="gone"
+            android:id="@+id/view_area"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/medium_light_gray"/>
     </LinearLayout>
 </ScrollView>
 
@@ -146,11 +191,13 @@
        android:id="@+id/btn_entry_submit"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:background="@color/colorPrimaryDark"
        android:layout_alignParentBottom="true"
        android:text="Submit"
        android:textColor="@color/white"
-       android:backgroundTint="@color/colorPrimary">
+       android:layout_marginLeft="@dimen/margin_25"
+       android:layout_marginRight="@dimen/margin_25"
+       android:layout_marginBottom="@dimen/margin_10"
+       android:background="@drawable/button_round">
 
    </android.support.v7.widget.AppCompatButton>
 </RelativeLayout>

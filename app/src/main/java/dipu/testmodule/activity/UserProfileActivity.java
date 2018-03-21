@@ -26,7 +26,7 @@ public class UserProfileActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_userprofile);
+        getLayoutInflater().inflate(R.layout.activity_userprofile,mBaseFrameContainer);
 
         Intent intent= getIntent();
         UserType=intent.getStringExtra("User_Type");

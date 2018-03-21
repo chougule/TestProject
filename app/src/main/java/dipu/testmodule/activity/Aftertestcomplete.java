@@ -67,31 +67,6 @@ public class Aftertestcomplete extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar snackbar=Snackbar.make(view, "Share this Test Report", Snackbar.LENGTH_LONG)
-                        .setAction("Ok", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                                Intent intent = new Intent(Intent.ACTION_SEND);
-                                intent.setType("plain/text");
-                                intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {});
-                                intent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Test Report");
-                                intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
-                                startActivity(Intent.createChooser(intent,"Send"));
-                            }
-                        });
-                snackbar.setActionTextColor(Color.RED);
-                View sbView = snackbar.getView();
-                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.YELLOW);
-                snackbar.show();
-            }
-        });
-
         Intent intent = getIntent();
         if (intent.hasExtra("Obtained")) {
 

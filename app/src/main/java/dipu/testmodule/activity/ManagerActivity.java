@@ -1,13 +1,19 @@
 package dipu.testmodule.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -77,14 +83,11 @@ public class ManagerActivity extends AppCompatActivity implements OnChartValueSe
         setContentView(R.layout.manager);
         init();
     }
-
     private void init() {
 
         manager = findViewById(R.id.spin_areamanager);
         employee = findViewById(R.id.spin_employee);
-
         mChart = findViewById(R.id.manager_piechart);
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -21,14 +21,6 @@
             android:layout_marginBottom="34dp"
             android:src="@drawable/conedlogo" />
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/spin_user"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="8dp"
-            style="?android:attr/spinnerDropDownItemStyle">
-
-        </android.support.v7.widget.AppCompatSpinner>
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
@@ -60,12 +52,31 @@
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tv_forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textColor="@color/color_twitter"
+            android:text="Forget Password?"/>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="right"
+            android:visibility="gone"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="5dp"/>
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnlogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:layout_marginTop="24dp"
+            android:layout_marginRight="@dimen/margin_25"
+            android:layout_marginLeft="@dimen/margin_25"
             android:padding="12dp"
             android:textColor="@color/white"
             android:background="@drawable/button_round"
