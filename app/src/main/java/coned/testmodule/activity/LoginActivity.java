@@ -29,6 +29,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import coned.testmodule.R;
 import coned.testmodule.beans.LoginResponse;
@@ -163,7 +164,7 @@ public class LoginActivity extends BaseActivity {
 
     private void loginUser() {
         if (getNetworkState()) {
-            HashMap<String, String> map = new HashMap<>();
+            Map<String, String> map = new HashMap<>();
             map.put("username", username.getText().toString());
             map.put("password", password.getText().toString());
             CommonController.getInstance().loginUser(map, reqLoginSuccessListener(), reqLoginErrorListener());
