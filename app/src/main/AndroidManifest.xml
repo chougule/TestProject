@@ -2,28 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="coned.testmodule">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name="coned.testmodule.controllers.ApplicationController"
+        android:name=".controllers.ApplicationController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name="coned.testmodule.activity.SplashActivity"
-            android:theme="@style/FullscreenTheme">
-
-        </activity>
-
+            android:name=".activity.SplashActivity"
+            android:theme="@style/FullscreenTheme"></activity>
         <activity
-            android:name="coned.testmodule.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -33,39 +29,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="coned.testmodule.activity.UserEntryActivity"
+            android:name=".activity.UserEntryActivity"
             android:label="Registration"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name="coned.testmodule.activity.BaseActivity" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.BaseActivity" />
         <activity
-            android:name="coned.testmodule.activity.QuestionairActivity"
+            android:name=".activity.QuestionairActivity"
             android:label="Questionnaire"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="coned.testmodule.activity.ReportActivity"
+            android:name=".activity.ReportActivity"
             android:label="Reports"
             android:screenOrientation="portrait" />
-        <activity android:name="coned.testmodule.activity.ModuleList" />
-        <activity android:name="coned.testmodule.activity.EmployeeDetailsActivity"
+        <activity
+            android:name=".activity.ModuleList"
+            android:label="Test Modules"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.EmployeeDetailsActivity"
             android:label="Details"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="coned.testmodule.activity.ManagerActivity" />
-        <activity android:name="coned.testmodule.activity.MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ManagerActivity" />
+        <activity android:name=".activity.MainActivity" />
         <activity
-            android:name="coned.testmodule.activity.UserProfileActivity"
+            android:name=".activity.UserProfileActivity"
             android:label="Your Profile"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="coned.testmodule.activity.Aftertestcomplete"
+            android:name=".activity.Aftertestcomplete"
             android:label="Test Report"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.DashboardActivity"
+            android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar"/>
-
     </application>
+
 </manifest>

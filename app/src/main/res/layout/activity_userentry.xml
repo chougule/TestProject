@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/padding_10"
-    android:orientation="vertical"
-    android:layout_above="@+id/btn_entry_submit">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +33,7 @@
                 android:id="@+id/radio_region_mgr"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".5"
+                android:layout_weight=".4"
                 android:checked="true"
                 android:text="Regional Manager" />
 
@@ -136,6 +135,13 @@
             android:paddingLeft="@dimen/padding_15"
             android:paddingRight="@dimen/padding_15" />-->
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Region"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spin_entry_city"
             android:layout_width="match_parent"
@@ -151,6 +157,15 @@
             android:layout_height="1dp"
             android:background="@color/medium_light_gray"/>
 
+        <TextView
+            android:id="@+id/tv_area_mgr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Area Manager"
+            android:textSize="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:visibility="gone"/>
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spin_entry_mgr"
             android:layout_width="match_parent"
@@ -168,6 +183,16 @@
             android:layout_height="1dp"
             android:background="@color/medium_light_gray"/>
 
+        <TextView
+            android:id="@+id/tv_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Area "
+            android:textSize="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:visibility="gone"/>
+
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spin_entry_area"
             android:layout_width="match_parent"
@@ -183,21 +208,24 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/medium_light_gray"/>
+
+        <android.support.v7.widget.AppCompatButton
+
+            android:id="@+id/btn_entry_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/margin_25"
+            android:layout_marginRight="@dimen/margin_25"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_25"
+            android:background="@drawable/button_round">
+
+        </android.support.v7.widget.AppCompatButton>
     </LinearLayout>
 </ScrollView>
 
-   <android.support.v7.widget.AppCompatButton
 
-       android:id="@+id/btn_entry_submit"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-       android:text="Submit"
-       android:textColor="@color/white"
-       android:layout_marginLeft="@dimen/margin_25"
-       android:layout_marginRight="@dimen/margin_25"
-       android:layout_marginBottom="@dimen/margin_10"
-       android:background="@drawable/button_round">
-
-   </android.support.v7.widget.AppCompatButton>
 </RelativeLayout>

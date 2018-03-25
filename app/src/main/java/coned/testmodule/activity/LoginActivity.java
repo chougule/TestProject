@@ -6,9 +6,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Region;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,15 +28,32 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+
+import coned.managers.SpManager;
 import coned.testmodule.R;
 import coned.testmodule.beans.LoginResponse;
 import coned.testmodule.controllers.CommonController;
+import coned.testmodule.controllers.ControllerManager;
 import coned.testmodule.helper.Alerts;
+import coned.testmodule.helper.AppConstants;
+
+import static coned.testmodule.helper.AppConstants.BASE_URL;
 
 public class LoginActivity extends BaseActivity {
 
@@ -121,7 +140,8 @@ public class LoginActivity extends BaseActivity {
                     password.requestFocus();
 
                 } else {
-                    loginUser();
+                    new SendPostRequest().execute();
+                    //loginUser();
                 }
             }
         });
@@ -129,10 +149,12 @@ public class LoginActivity extends BaseActivity {
 
     private void ForgotPassword(){
 
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, R.style.CustomDialog);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.alert_password, null);
         final EditText email=dialogView.findViewById(R.id.edt_email);
+        dialogBuilder.setTitle("Forgot Password");
+        dialogBuilder.setMessage("Password will send on registered email id");
         dialogBuilder.setView(dialogView);
         final AlertDialog alertDialog = dialogBuilder.create();
 
@@ -181,6 +203,7 @@ public class LoginActivity extends BaseActivity {
             public void onResponse(LoginResponse response) {
 
                 hideProgressBar();
+                Log.d("##########resp",response.toString());
                 tost.displayToastLONG("Login Successful");
                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
@@ -228,5 +251,128 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         };
+    }
+
+    public class SendPostRequest extends AsyncTask<String, Void, String> {
+
+        protected void onPreExecute(){
+            startLoading_1("Loading...");
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try{
+                String LOGIN= AppConstants.BASE_URL+"auth/login";
+                URL url = new URL(LOGIN);
+
+                JSONObject postDataParams = new JSONObject();
+                postDataParams.put("username", username.getText().toString());
+                postDataParams.put("password", password.getText().toString());
+                Log.e("params",postDataParams.toString());
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000 /* milliseconds */);
+                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode=conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                    BufferedReader in=new BufferedReader(new
+                            InputStreamReader(
+                            conn.getInputStream()));
+
+                    StringBuffer sb = new StringBuffer("");
+                    String line="";
+
+                    while((line = in.readLine()) != null) {
+
+                        sb.append(line);
+                        break;
+                    }
+
+                    in.close();
+                    return sb.toString();
+
+                }
+                else {
+                    return new String("false : "+responseCode);
+                }
+            }
+            catch(Exception e){
+                return new String("Exception: " + e.getMessage());
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            try {
+                stopLoading_1();
+                if (!result.equals("false : 400")) {
+                    JSONObject jsonObject = new JSONObject(result);
+
+                    String userid = jsonObject.getString("userid");
+                    String user_name = jsonObject.getString("user name");
+                    String mobile = jsonObject.getString("mobile");
+                    String token = jsonObject.getString("token");
+                    String user_type = jsonObject.getString("user_type");
+                    SpManager spManager = ControllerManager.getInstance().getSpManager();
+                    spManager.setUserEmail(username.getText().toString());
+                    spManager.setMobileNumber(mobile);
+                    spManager.setUsertype(user_type);
+                    spManager.setFullname(user_name);
+                    spManager.setToken(token);
+                    Log.d("##########resp",result.toString());
+                    tost.displayToastLONG("Login Successful");
+                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                    intent.putExtra("User_Type",user_type);
+                    startActivity(intent);
+                }else {
+                    tost.displayToastLONG("Invalid User Name or Password");
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public String getPostDataString(JSONObject params) throws Exception {
+
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+
+        Iterator<String> itr = params.keys();
+
+        while(itr.hasNext()){
+
+            String key= itr.next();
+            Object value = params.get(key);
+
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(key, "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+
+        }
+        return result.toString();
     }
 }

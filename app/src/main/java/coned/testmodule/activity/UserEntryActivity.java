@@ -2,11 +2,11 @@ package coned.testmodule.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Region;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkError;
@@ -38,7 +39,6 @@ import coned.managers.SpManager;
 import coned.testmodule.R;
 import coned.testmodule.beans.Area;
 import coned.testmodule.beans.AreaManager;
-import coned.testmodule.beans.LoginResponse;
 import coned.testmodule.beans.Register;
 import coned.testmodule.controllers.CommonController;
 import coned.testmodule.controllers.ControllerManager;
@@ -47,14 +47,16 @@ import coned.testmodule.helper.Alerts;
 public class UserEntryActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     SpManager spManager;
-    View view_city,view_mgr,view_area;
+    View view_city, view_mgr, view_area;
     RadioGroup radioGroup;
-    EditText name, email, mobile,password;
+    EditText name, email, mobile, password;
     Spinner spin_region, spin_manager, spin_area;
+    TextView tv_area_mgr, tv_area;
     Button submit;
     String[] region;
     String[] areaManager;
     String[] area;
+    String region_id, area_mgr_id, area_id;
     ArrayList<coned.testmodule.beans.Region> regionList;
     ArrayList<AreaManager> ListMgr;
     ArrayList<Area> ListArea;
@@ -69,7 +71,7 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
 
         super.onCreate(savedInstanceState);
 
-        getLayoutInflater().inflate(R.layout.activity_userentry,mBaseFrameContainer);
+        getLayoutInflater().inflate(R.layout.activity_userentry, mBaseFrameContainer);
 
         init();
         getRegionList();
@@ -87,9 +89,9 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
         spManager.setFullname(name.getText().toString().trim());
         spManager.setUserEmail(email.getText().toString().trim());
         spManager.setMobileNumber(mobile.getText().toString().trim());
-        if (spin_manager.getVisibility()==View.VISIBLE)
+        if (spin_manager.getVisibility() == View.VISIBLE)
             spManager.setReportMgr(spin_manager.getSelectedItem().toString());
-        if (spin_area.getVisibility()==View.VISIBLE)
+        if (spin_area.getVisibility() == View.VISIBLE)
             spManager.setArea(spin_area.getSelectedItem().toString());
         /*SharedPreferences sharedPref = getSharedPreferences("MyPREFERENCES",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -115,16 +117,18 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
         spin_manager = findViewById(R.id.spin_entry_mgr);
         spin_area = findViewById(R.id.spin_entry_area);
         submit = findViewById(R.id.btn_entry_submit);
-        view_city=findViewById(R.id.view_area);
-        view_mgr=findViewById(R.id.view_area);
-        view_area=findViewById(R.id.view_area);
+        view_city = findViewById(R.id.view_city);
+        view_mgr = findViewById(R.id.view_mgr);
+        view_area = findViewById(R.id.view_area);
+        tv_area_mgr = findViewById(R.id.tv_area_mgr);
+        tv_area = findViewById(R.id.tv_area);
         spin_area.setOnItemSelectedListener(this);
         spin_manager.setOnItemSelectedListener(this);
         spin_region.setOnItemSelectedListener(this);
         //skip.setOnClickListener(this);
 
-        areaManager=new String[]{};
-        area=new String[]{};
+        areaManager = new String[]{};
+        area = new String[]{};
 
         submit.setOnClickListener(this);
 
@@ -136,6 +140,8 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
                     case R.id.radio_region_mgr:
                         user_type = "Regional Manager";
                         spin_region.setSelection(0);
+                        tv_area.setVisibility(View.GONE);
+                        tv_area_mgr.setVisibility(View.GONE);
                         view_area.setVisibility(View.GONE);
                         view_mgr.setVisibility(View.GONE);
                         spin_manager.setVisibility(View.GONE);
@@ -149,6 +155,7 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
                         spin_area.setVisibility(View.GONE);
                         view_area.setVisibility(View.GONE);
                         view_mgr.setVisibility(View.VISIBLE);
+                        tv_area_mgr.setVisibility(View.VISIBLE);
                         /*adapter_mgr = new ArrayAdapter(UserEntryActivity.this, R.layout.spinneradapter, ListMgr);
                         adapter_mgr.setDropDownViewResource(R.layout.spinneradapter);
                         spin_manager.setAdapter(adapter_mgr);*/
@@ -157,6 +164,7 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
                     case R.id.radio_represent:
                         user_type = "Medical Representative";
                         spin_region.setSelection(0);
+                        tv_area.setVisibility(View.VISIBLE);
                         spin_manager.setVisibility(View.VISIBLE);
                         spin_area.setVisibility(View.VISIBLE);
                         view_city.setVisibility(View.VISIBLE);
@@ -174,6 +182,9 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
         });
     }
 
+    public final static boolean isValidEmail(String target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
     @Override
     public void onClick(View view) {
 
@@ -196,11 +207,11 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
 
     public void getRegionList() {
 
-        if (getNetworkState()){
+        if (getNetworkState()) {
             showProgressBar();
             CommonController.getInstance().getRegion(reqRegionSuccessListener(), reqRegionErrorListener());
 
-        }else {
+        } else {
 
             tost.displayToastLONG("Please check internet connection");
         }
@@ -209,43 +220,43 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
 
     public void getAreaList(String areaMgr_id) {
 
-        if (getNetworkState()){
+        if (getNetworkState()) {
 
-            CommonController.getInstance().getAreaList(areaMgr_id,reqAreaSuccessListener(),reqAreaErrorListener());
+            CommonController.getInstance().getAreaList(areaMgr_id, reqAreaSuccessListener(), reqAreaErrorListener());
 
-        }else {
+        } else {
 
             tost.displayToastLONG("Please check internet connection");
         }
     }
 
-    public void getAreaManager(String region_id){
+    public void getAreaManager(String region_id) {
 
         showProgressBar();
-        if (getNetworkState()){
+        if (getNetworkState()) {
 
-            CommonController.getInstance().getAreaManager(region_id,reqAreaMgrSuccessListener(), reqAreaMgrErrorListener());
-        }else {
+            CommonController.getInstance().getAreaManager(region_id, reqAreaMgrSuccessListener(), reqAreaMgrErrorListener());
+        } else {
 
             tost.displayToastLONG("Please check internet connection");
         }
 
     }
 
-    public void register(){
+    public void register() {
 
-        if (getNetworkState()){
-            Map<String,String>map=new HashMap<>();
-            map.put("user_type",user_type);
-            map.put("full_name",name.getText().toString());
-            map.put("email",email.getText().toString());
-            map.put("mobileno",mobile.getText().toString());
-            map.put("region","");
-            map.put("area","");
-            map.put("password","Pass1234");
-            map.put("under_user","");
-            CommonController.getInstance().register(map,registerSuccessListener(), registerErrorListener());
-        }else {
+        if (getNetworkState()) {
+            Map<String, String> map = new HashMap<>();
+            map.put("user_type", user_type);
+            map.put("full_name", name.getText().toString());
+            map.put("email", email.getText().toString());
+            map.put("mobileno", mobile.getText().toString());
+            map.put("region", "");
+            map.put("area", "");
+            map.put("password", "Pass1234");
+            map.put("under_user", "");
+            CommonController.getInstance().register(map, registerSuccessListener(), registerErrorListener());
+        } else {
 
             tost.displayToastLONG("Please check internet connection");
         }
@@ -259,8 +270,8 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
             public void onResponse(Register response) {
 
                 hideProgressBar();
-                tost.displayToastLONG("Login Successful");
-                Intent intent=new Intent(UserEntryActivity.this,LoginActivity.class);
+                tost.displayToastLONG("Register Successful");
+                Intent intent = new Intent(UserEntryActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         };
@@ -315,21 +326,19 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
                 try {
 
                     hideProgressBar();
-                    ListArea = new Gson().fromJson(response.toString(), new TypeToken<List<coned.testmodule.beans.Region>>()
-                    {
+                    ListArea = new Gson().fromJson(response.toString(), new TypeToken<List<Area>>() {
 
                     }.getType());
-                    area=new String[ListArea.size()+1];
-                    area[0]="Select Area";
-                    for (int i=1;i<=ListArea.size();i++){
+                    area = new String[ListArea.size()];
+                    for (int i = 0; i < ListArea.size(); i++) {
 
-                        area[i]=ListArea.get(i-1).getArea_name();
+                        area[i] = ListArea.get(i).getArea_name();
                     }
 
                     adapter_area = new ArrayAdapter(UserEntryActivity.this, R.layout.spinneradapter, area);
                     adapter_area.setDropDownViewResource(R.layout.spinneradapter);
                     spin_area.setAdapter(adapter_area);
-                }catch (Exception e){
+                } catch (Exception e) {
 
                     e.printStackTrace();
                 }
@@ -428,22 +437,21 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
             public void onResponse(JSONArray response) {
                 try {
 
-                hideProgressBar();
-                    regionList = new Gson().fromJson(response.toString(), new TypeToken<List<coned.testmodule.beans.Region>>()
-                    {
+                    hideProgressBar();
+                    regionList = new Gson().fromJson(response.toString(), new TypeToken<List<coned.testmodule.beans.Region>>() {
 
                     }.getType());
-                    region=new String[regionList.size()+1];
-                    region[0]="Select Region";
-                    for (int i=1;i<=regionList.size();i++){
+                    region = new String[regionList.size()];
 
-                        region[i]=regionList.get(i-1).getReg_name();
+                    for (int i = 0; i < regionList.size(); i++) {
+
+                        region[i] = regionList.get(i).getReg_name();
                     }
 
                     adapter_region = new ArrayAdapter(UserEntryActivity.this, R.layout.spinneradapter, region);
                     adapter_region.setDropDownViewResource(R.layout.spinneradapter);
                     spin_region.setAdapter(adapter_region);
-            }catch (Exception e){
+                } catch (Exception e) {
 
                     e.printStackTrace();
                 }
@@ -458,14 +466,14 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
                 try {
                     hideProgressBar();
 
-                    ListMgr = new Gson().fromJson(response.toString(), new TypeToken<List<AreaManager>>()
-                    {
+                    ListMgr = new Gson().fromJson(response.toString(), new TypeToken<List<AreaManager>>() {
 
                     }.getType());
-                    areaManager=new String[ListMgr.size()];
-                    for (int i=0;i<ListMgr.size();i++){
+                    areaManager = new String[ListMgr.size()];
 
-                        areaManager[i]=ListMgr.get(i).getName();
+                    for (int i = 0; i < ListMgr.size(); i++) {
+
+                        areaManager[i] = ListMgr.get(i).getName();
                     }
 
                     adapter_mgr = new ArrayAdapter(UserEntryActivity.this, R.layout.spinneradapter, areaManager);
@@ -524,23 +532,23 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
         if (name.getText().toString().isEmpty()) {
             name.setError("Please Enter Name");
             check = false;
-        } else if (email.getText().toString().isEmpty()) {
-            email.setError("Please Enter Email");
+        } else if (isValidEmail(email.getText().toString())) {
+            email.setError("Please Enter Valid Email");
             check = false;
         } else if (mobile.getText().toString().isEmpty()) {
             mobile.setError("Please Enter Mobile Number");
             check = false;
-        } else if (spin_region.getSelectedItemPosition() == 0) {
+        } else if (regionList.size() == 0) {
 
-            Toast.makeText(UserEntryActivity.this, "Please Select City", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserEntryActivity.this, "Please Select Region", Toast.LENGTH_SHORT).show();
             check = false;
 
         } else if (spin_manager.getVisibility() == View.VISIBLE) {
-            if (spin_manager.getSelectedItemPosition() == 0) {
+            if (ListMgr.size() == 0) {
                 Toast.makeText(UserEntryActivity.this, "Please Select Manager", Toast.LENGTH_SHORT).show();
                 check = false;
             } else if (spin_area.getVisibility() == View.VISIBLE) {
-                if (spin_area.getSelectedItemPosition() == 0) {
+                if (ListArea.size() == 0) {
                     Toast.makeText(UserEntryActivity.this, "Please Select Area", Toast.LENGTH_SHORT).show();
                     check = false;
                 }
@@ -553,25 +561,30 @@ public class UserEntryActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-        switch (adapterView.getId()){
+        switch (adapterView.getId()) {
 
             case R.id.spin_entry_city:
-                    /*if (i>0) {
-                        getAreaManager(regionList.get(i-1).getRegion_id());
-                    }*/
 
-                if (i>0){
-                    getAreaList("1");
-                }
+                region_id = regionList.get(i).getRegion_id();
+                getAreaManager(regionList.get(i).getRegion_id());
+                area = new String[0];
+                adapter_area = new ArrayAdapter(UserEntryActivity.this, R.layout.spinneradapter, area);
+                adapter_area.setDropDownViewResource(R.layout.spinneradapter);
+                spin_area.setAdapter(adapter_area);
 
                 break;
 
             case R.id.spin_entry_mgr:
+
+                area_mgr_id = ListMgr.get(i).getId();
+                getAreaList(area_mgr_id);
+
+
                 break;
-            case R.id.spin_areamanager:
-                if (i>0){
-                    getAreaList("1");
-                }
+            case R.id.spin_entry_area:
+
+                area_id = ListArea.get(i).getArea_id();
+
                 break;
         }
 

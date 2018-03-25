@@ -1,15 +1,34 @@
 package coned.testmodule.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import coned.managers.SpManager;
 import coned.testmodule.R;
+import coned.testmodule.beans.LoginResponse;
+import coned.testmodule.controllers.CommonController;
 import coned.testmodule.controllers.ControllerManager;
+import coned.testmodule.helper.Alerts;
 
 public class UserProfileActivity extends BaseActivity {
 
@@ -17,6 +36,7 @@ public class UserProfileActivity extends BaseActivity {
     LinearLayout linearLayout_mgr,ll_area;
     String UserType;
     SpManager spManager;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,8 +57,79 @@ public class UserProfileActivity extends BaseActivity {
         area=findViewById(R.id.profile_area);
         linearLayout_mgr=findViewById(R.id.ll_reportmgr);
         ll_area=findViewById(R.id.ll_area);
+
+        getUserDetails();
         Setdata();
 
+    }
+
+    private void getUserDetails() {
+
+        if (getNetworkState()) {
+            Map<String, String> map = new HashMap<>();
+
+            CommonController.getInstance().viewProfile( SuccessListener(), ErrorListener());
+        }else {
+
+            tost.displayToastLONG("Check internet connection");
+        }
+    }
+
+    public Response.Listener<LoginResponse> SuccessListener() {
+        hideProgressBar();
+        return new Response.Listener<LoginResponse>() {
+            @Override
+            public void onResponse(LoginResponse response) {
+
+                hideProgressBar();
+                Log.d("##########resp",response.toString());
+                tost.displayToastLONG("Login Successful");
+                Intent intent=new Intent(UserProfileActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        };
+    }
+
+    private Response.ErrorListener ErrorListener() {
+
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                hideProgressBar();
+
+                try {
+                    hideProgressBar();
+                    DialogInterface.OnClickListener retryBTN = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            getUserDetails();
+                        }
+                    };
+
+                    if (error instanceof NetworkError) {
+                        alertDialog = Alerts.internetConnectionErrorAlert(UserProfileActivity.this, retryBTN);
+                    } else if (error instanceof ServerError) {
+                        tost.displayToastLONG("Server error");
+                    } else if (error instanceof NoConnectionError) {
+                        tost.displayToastLONG("Unable to connect server !");
+                    } else if (error instanceof TimeoutError) {
+                        alertDialog = Alerts.timeoutErrorAlert(UserProfileActivity.this, retryBTN);
+                    } else if (error instanceof ParseError) {
+
+                        getUserDetails();
+
+                    } else {
+
+                        JSONObject jsonObject = new JSONObject(error.getMessage());
+                        tost.displayToastSHORT(jsonObject.getString("error"));
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
     }
 
     private void Setdata() {

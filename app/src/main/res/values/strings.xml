@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Training Module</string>
+    <string name="app_name">Con-Ed</string>
     <string name="title_activity_signUp">Sign Up</string>
     <string name="title_activity_login">Sign In</string>
 
@@ -125,5 +125,6 @@
     <string name="title_activity_splash">Splash</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_dashboard">Con-Ed</string>
 
 </resources>

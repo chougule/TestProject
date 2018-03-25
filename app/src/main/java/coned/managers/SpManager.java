@@ -17,6 +17,7 @@ public class SpManager {
     private static final String USER_type = "usertype";
     private static final String REPORT_MGR = "report_manager";
     private static final String AREA = "area";
+    private static final String TOKEN="token";
     // Shared Preferences
     SharedPreferences pref;
     // Editor for Shared preferences
@@ -69,6 +70,27 @@ public class SpManager {
     {
         try {
             return pref.getString(REPORT_MGR,"");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setToken(String token)
+    {
+        try {
+            editor.putString(TOKEN,token);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        editor.commit();
+    }
+
+    public String getToken ()
+    {
+        try {
+            return pref.getString(TOKEN,"");
         } catch (Exception e) {
             e.printStackTrace();
         }

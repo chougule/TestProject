@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             UserType = intent.getStringExtra("User_Type");
         }
 
-        if (UserType.equals("Medical Representative")) {
+        if (UserType.equals("Medical_Representative")) {
 
             layout.setVisibility(View.VISIBLE);
             report.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (UserType.equals("Medical Representative")) {
+                    if (UserType.equals("Medical_Representative")) {
 
                         startActivity(new Intent(MainActivity.this, ModuleList.class));
                     } else if (UserType.equals("Manager")) {

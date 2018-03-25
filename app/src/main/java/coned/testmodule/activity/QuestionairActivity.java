@@ -14,16 +14,36 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import coned.testmodule.R;
+import coned.testmodule.beans.Area;
+import coned.testmodule.beans.LoginResponse;
 import coned.testmodule.beans.Questionair;
+import coned.testmodule.controllers.CommonController;
+import coned.testmodule.helper.Alerts;
 
 /**
  * Created by Deepak on 11-Dec-17.
@@ -45,6 +65,8 @@ public class QuestionairActivity extends BaseActivity {
     int CorrectAnswer = 0;
     int Question = 0;
     int time = 30;
+    String module_id="";
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,8 +74,91 @@ public class QuestionairActivity extends BaseActivity {
         getLayoutInflater().inflate(R.layout.activity_questionair_second, mBaseFrameContainer);
 
         init();
+        getQuestionair();
         DetailsAlert();
 
+    }
+
+    private void getQuestionair() {
+
+        if (getNetworkState()) {
+            Map<String, String> map = new HashMap<>();
+
+            CommonController.getInstance().getTestQuestion( module_id,SuccessListener(), ErrorListener());
+        }else {
+
+            tost.displayToastLONG("Check internet connection");
+            finish();
+        }
+    }
+
+    public Response.Listener<JSONArray> SuccessListener() {
+        return new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+
+                    hideProgressBar();
+                    ListArea = new Gson().fromJson(response.toString(), new TypeToken<List<Area>>() {
+
+                    }.getType());
+                    area = new String[ListArea.size()];
+                    for (int i = 0; i < ListArea.size(); i++) {
+
+                        area[i] = ListArea.get(i).getArea_name();
+                    }
+
+                    adapter_area = new ArrayAdapter(UserEntryActivity.this, R.layout.spinneradapter, area);
+                    adapter_area.setDropDownViewResource(R.layout.spinneradapter);
+                    spin_area.setAdapter(adapter_area);
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    public Response.ErrorListener ErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                hideProgressBar();
+
+                try {
+                    hideProgressBar();
+                    DialogInterface.OnClickListener retryBTN = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    };
+
+                    if (error instanceof NetworkError) {
+                        alertDialog = Alerts.internetConnectionErrorAlert(QuestionairActivity.this, retryBTN);
+                    } else if (error instanceof ServerError) {
+                        tost.displayToastLONG("Server error");
+                    } else if (error instanceof NoConnectionError) {
+                        tost.displayToastLONG("Unable to connect server !");
+                    } else if (error instanceof TimeoutError) {
+                        alertDialog = Alerts.timeoutErrorAlert(QuestionairActivity.this, retryBTN);
+                    } else if (error instanceof ParseError) {
+                        getQuestionair();
+
+                    } else {
+
+                        JSONObject jsonObject = new JSONObject(error.getMessage());
+                        if (jsonObject.has("result"))
+                            tost.displayToastSHORT(jsonObject.getString("result"));
+                        else
+                            tost.displayToastSHORT("something went wrong");
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
     }
 
     private void DetailsAlert() {
@@ -149,6 +254,9 @@ public class QuestionairActivity extends BaseActivity {
     }
 
     private void init() {
+
+        Intent intent=getIntent();
+        module_id=intent.getStringExtra("module_id");
         mydb = new DBHelper(this);
 
         List<Questionair> a = new ArrayList<>();
